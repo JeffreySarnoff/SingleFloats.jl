@@ -14,7 +14,7 @@ for Op in (:rank, :cond, :norm, :opnorm, :det, :tr)
     @eval $Op(x::Array{FloatWK,2}) = FloatWK($Op(Float64.(x)))
 end
  
-for Op in (:transpose, :adjoint, :inv, :pinv)\
+for Op in (:transpose, :adjoint, :inv, :pinv)
     @eval $Op(x::Array{FloatWK,2}) = FloatWK.($Op(Float64.(x)))
 end
  
