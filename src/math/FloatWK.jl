@@ -4,7 +4,7 @@ import Base.Math: ^, sqrt, cbrt, ∛, div, rem, fld, mod, cld, hypot, min, max, 
 import Base: abs, abs2, sign, copysign, flipsign, floor, ceil, trunc, round, divrem, fldmod, clamp
 
 # comparisons
-for Op in (:cmp, :==, :!=, :>=, :<=, :>, :<, :isless, :isequal)
+for Op in (:cmp, :(==), :(!=), :(>=), :(<=), :(>), :(<), :isless, :isequal)
     @eval begin
         $Op(x::FloatWK, y::FloatWK) = FloatWK($Op(Float64(x), Float64(y)))
         $Op(x::FloatWK, y::Float64) = FloatWK($Op(Float64(x), y))
