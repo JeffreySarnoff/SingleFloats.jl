@@ -20,3 +20,4 @@ Base.string(x::FloatWK) = string(Float32(x))
 Base.repr(x::FloatWK) = string("FloatWK(",repr(Float64(x)),")")
 
 Base.hash(x::FloatWK) = hash(Float64(x))
+Base.hash(x::FloatWK, h::UInt64) = hash(Float64(x), h)
