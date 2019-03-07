@@ -16,5 +16,6 @@ import LinearAlgebra: rank, cond, norm, opnorm, det, tr, inv, pinv.
 
 include("type/FloatWK.jl")
 include("math/FloatWK.jl")
+include("math/linearalgebra.jl")
 
 end # SingleFloats
