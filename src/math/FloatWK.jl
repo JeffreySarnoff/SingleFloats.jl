@@ -1,4 +1,4 @@
-import Base.Operators: +, -, *, /, \, %, √, ÷
+import Base: +, -, *, /, \, %, √, ÷
 import Base.Math: ^, sqrt, cbrt, ∛, div, rem, fld, mod, cld, hypot, min, max, minmax, rad2deg, deg2rad, mod2pi, rem2pi
 import Base: abs, abs2, sign, copysign, flipsign, floor, ceil, trunc, round, divrem, fldmod, clamp
 
