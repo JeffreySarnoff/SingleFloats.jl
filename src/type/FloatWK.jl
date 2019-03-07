@@ -1,5 +1,7 @@
 primitive type FloatWK <: AbstractFloat 64 end
 
+const IEEEFloats = Union{FloatWK, Float64, Float32, Float16}
+
 @inline FloatWK(x::Float64) = reinterpret(FloatWK, x)
 @inline FloatWK(x::Float32) = reinterpret(FloatWK, Float64(x))
 FloatWK(x::BigFloat) = FloatWK(Float64(x))
