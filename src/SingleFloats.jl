@@ -1,7 +1,10 @@
 module SingleFloats
 
-export FLOAT32, FLOAT64
+export FloatWK
 
 import Base: promote_rule, convert 
+
+include("type/FloatWK.jl")
+include("math/FloatWK.jl")
 
 end # SingleFloats
