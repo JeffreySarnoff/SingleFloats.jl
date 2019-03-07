@@ -34,7 +34,7 @@ for Op in (:+, :-, :sqrt, :cbrt, :rad2deg, :deg2rad, :mod2pi, :rem2pi, :abs, :ab
     @eval $Op(x::FloatWK) = FloatWK($Op(Float64(x)))
 end
 for Op in (:exp, :exp2, :exp10, :expm1, :log, :log2, :log10, :log1p,
-           :sin, :cos, :tan, :csc, :sec, :cot, :asin, :acos, ;atan, :acsc, :asec, :acot,
+           :sin, :cos, :tan, :csc, :sec, :cot, :asin, :acos, :atan, :acsc, :asec, :acot,
            :sinh, :cosh, :tanh, :csch, :sech, :coth, :asinh, :acosh, :atanh, :acsch, :asech, :acoth)
     @eval $Op(x::FloatWK) = FloatWK($Op(Float64(x)))
 end
