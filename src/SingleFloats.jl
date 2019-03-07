@@ -6,7 +6,7 @@ using Base: IEEEFloat
 import Base: promote_rule, convert
 
 using LinearAlgebra
-import LinearAlgebra: rank, cond, norm, opnorm, det, tr, inv, pinv. 
+import LinearAlgebra: rank, cond, norm, opnorm, det, tr, inv, pinv, 
                       transpose, adjoint, eigvals, eigvals!, svdvals, svdvals!, svd,
                       iszero, isone, isdiag, issquare, issymmetric, ishermitian,
                       isposdef, isposdef!, istril, istriu,
