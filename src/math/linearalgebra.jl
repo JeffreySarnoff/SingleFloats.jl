@@ -5,7 +5,7 @@ svd,
                       cholesky, cholesky!, factorize
 =#
 
-for Op in (:iszero, :isone, :isdiag, :issquare, :issymmetric,
+for Op in (:iszero, :isone, :isdiag, :issymmetric,
            :ishermitian, :isposdef, :isposdef!, :istril, :istriu)
     @eval $Op(x::Array{FloatWK,2}) = $Op(Float64.(x))
 end
