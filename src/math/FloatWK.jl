@@ -4,7 +4,7 @@ import Base.Math: ^, sqrt, cbrt, ∛, div, rem, fld, mod, cld, hypot, min, max, 
 import Base: abs, abs2, sign, copysign, flipsign, floor, ceil, trunc, round, divrem, fldmod, clamp
 import Base: exp, exp2, exp10, expm1, log, log2, log10, log1p, 
              sin, cos, tan, csc, sec, cot, asin, acos, atan, acsc, asec, acot,
-             sinh, cosh, tanh, csch, sech, coth, asinh, acosh, atanh, acsch, asech, acoth,
+             sinh, cosh, tanh, csch, sech, coth, asinh, acosh, atanh, acsch, asech, acoth
 
 # comparisons
 for Op in (:cmp, :(==), :(!=), :(>=), :(<=), :(>), :(<), :isless, :isequal)
