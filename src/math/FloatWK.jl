@@ -2,6 +2,9 @@ import Base: cmp, ==, !=, >=, >, <=, <, isless, isequal
 import Base: +, -, *, /, \, %, √, ÷
 import Base.Math: ^, sqrt, cbrt, ∛, div, rem, fld, mod, cld, hypot, min, max, minmax, rad2deg, deg2rad, mod2pi, rem2pi
 import Base: abs, abs2, sign, copysign, flipsign, floor, ceil, trunc, round, divrem, fldmod, clamp
+import Base: exp, exp2, exp10, expm1, log, log2, log10, log1p, 
+             sin, cos, tan, csc, sec, cot, asin, acos, atan, acsc, asec, acot,
+             sinh, cosh, tanh, csch, sech, coth, asinh, acosh, atanh, acsch, asech, acoth,
 
 # comparisons
 for Op in (:cmp, :(==), :(!=), :(>=), :(<=), :(>), :(<), :isless, :isequal)
@@ -28,6 +31,11 @@ end
 
 # unary
 for Op in (:+, :-, :sqrt, :cbrt, :rad2deg, :deg2rad, :mod2pi, :rem2pi, :abs, :abs2, :sign, :floor, :ceil, :trunc, :round)
+    @eval $Op(x::FloatWK) = FloatWK($Op(Float64(x)))
+end
+for Op in (:exp, :exp2, :exp10, :expm1, :log, :log2, :log10, :log1p,
+           :sin, :cos, :tan, :csc, :sec, :cot, :asin, :acos, ;atan, :acsc, :asec, :acot,
+           :sinh, :cosh, :tanh, :csch, :sech, :coth, :asinh, :acosh, :atanh, :acsch, :asech, :acoth)
     @eval $Op(x::FloatWK) = FloatWK($Op(Float64(x)))
 end
 # binary
