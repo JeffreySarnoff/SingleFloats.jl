@@ -38,3 +38,19 @@ end
 for Op in (:clamp,)
     @eval $Op(x::FloatWK, y::FloatWK, z::FloatWK) = FloatWK($Op(Float64(x), Float64(y), Float64(z)))
 end
+
+Base.fma(x::FloatWK, y::FloatWK, z::FloatWK) = FloatWK(fma(Float64(x), Float64(y), Float64(z)))
+Base.fma(x::FloatWK, y::FloatWK, z::IEEEFloat) = FloatWK(fma(Float64(x), Float64(y), Float64(z)))
+Base.fma(x::FloatWK, y::IEEEFloat, z::FloatWK= FloatWK(fma(Float64(x), Float64(y), Float64(z)))
+Base.fma(x::IEEEFloat, y::FloatWK, z::FloatWK) = FloatWK(fma(Float64(x), Float64(y), Float64(z)))
+Base.fma(x::FloatWK, y::IEEEFloat, z::IEEEFloat) = FloatWK(fma(Float64(x), Float64(y), Float64(z)))
+Base.fma(x::IEEEFloat, y::FloatWK, z::IEEEFloat) = FloatWK(fma(Float64(x), Float64(y), Float64(z)))
+Base.fma(x::IEEEFloat, y::IEEEFloat, z::FloatWK) = FloatWK(fma(Float64(x), Float64(y), Float64(z)))
+
+Base.muladd(x::FloatWK, y::FloatWK, z::FloatWK) = FloatWK(muladd(Float64(x), Float64(y), Float64(z)))
+Base.muladd(x::FloatWK, y::FloatWK, z::IEEEFloat) = FloatWK(muladd(Float64(x), Float64(y), Float64(z)))
+Base.muladd(x::FloatWK, y::IEEEFloat, z::FloatWK= FloatWK(muladd(Float64(x), Float64(y), Float64(z)))
+Base.muladd(x::IEEEFloat, y::FloatWK, z::FloatWK) = FloatWK(muladd(Float64(x), Float64(y), Float64(z)))
+Base.muladd(x::FloatWK, y::IEEEFloat, z::IEEEFloat) = FloatWK(muladd(Float64(x), Float64(y), Float64(z)))
+Base.muladd(x::IEEEFloat, y::FloatWK, z::IEEEFloat) = FloatWK(muladd(Float64(x), Float64(y), Float64(z)))
+Base.muladd(x::IEEEFloat, y::IEEEFloat, z::FloatWK) = FloatWK(muladd(Float64(x), Float64(y), Float64(z)))
