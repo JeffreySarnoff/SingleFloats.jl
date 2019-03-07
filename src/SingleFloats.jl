@@ -2,7 +2,7 @@ module SingleFloats
 
 export FloatWK
 
-import Base: promote_rule, convert 
+import Base: IEEEFloat, promote_rule, convert 
 
 include("type/FloatWK.jl")
 include("math/FloatWK.jl")
