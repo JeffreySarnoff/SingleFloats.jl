@@ -1,10 +1,3 @@
-#=
-svd,
-                      lu, lu!, qr, qr!,
-                      schur, schur!, hessenberg, hessenberg!,
-                      cholesky, cholesky!, factorize
-=#
-
 for Op in (:iszero, :isone, :isdiag, :issymmetric,
            :ishermitian, :isposdef, :isposdef!, :istril, :istriu)
     @eval $Op(x::Array{Single32,2}) = $Op(Float64.(x))
