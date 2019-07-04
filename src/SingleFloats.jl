@@ -1,6 +1,6 @@
 module SingleFloats
 
-export FloatWK
+export Single32
 
 using Base: IEEEFloat
 import Base: promote_rule, convert
@@ -14,8 +14,8 @@ import LinearAlgebra: rank, cond, norm, opnorm, det, tr, inv, pinv,
                       schur, schur!, hessenberg, hessenberg!,
                       cholesky, cholesky!, factorize
 
-include("type/FloatWK.jl")
-include("math/FloatWK.jl")
+include("type/Single32.jl")
+include("math/Single32.jl")
 include("math/linearalgebra.jl")
 
 end # SingleFloats
