@@ -1,8 +1,4 @@
-import Base: cmp, ==, !=, >=, >, <=, <, isless, isequal
-
 primitive type Single32 <: AbstractFloat 64 end
-
-const IEEEFloats = Union{Single32, Float64, Float32, Float16}
 
 Single32(x::Single32) = x
 
