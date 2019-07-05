@@ -5,7 +5,7 @@ Float32 results are computed using Float64s
 ####  This work is released under The MIT License.
 
 ----
-[![Travis Build Status](https://travis-ci.org/JeffreySarnoff/SingleFloats.jl.svg?branch=master)](https://travis-ci.org/JeffreySarnoff/SingleFloats.jl)
+[![Travis Build Status](https://travis-ci.org/JeffreySarnoff/SingleFloats.jl.svg?branch=master)](https://travis-ci.org/JeffreySarnoff/SingleFloats.jl) [![codecov](https://codecov.io/gh/JeffreySarnoff/SingleFloats.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/JeffreySarnoff/SingleFloats.jl)
 ----
 
 ```
