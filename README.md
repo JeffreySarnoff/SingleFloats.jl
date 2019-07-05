@@ -8,6 +8,7 @@ Float32 results are computed using Float64s
 [![Travis Build Status](https://travis-ci.org/JeffreySarnoff/SingleFloats.jl.svg?branch=master)](https://travis-ci.org/JeffreySarnoff/SingleFloats.jl) [![codecov](https://codecov.io/gh/JeffreySarnoff/SingleFloats.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/JeffreySarnoff/SingleFloats.jl)
 ----
 
+
 ### Additional reliability comes with using `Simple32s`.
 
 ```
