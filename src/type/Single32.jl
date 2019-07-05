@@ -30,6 +30,10 @@ Base.repr(x::Single32) = string("Single32(",repr(Float64(x)),")")
 Base.hash(x::Single32) = hash(Float64(x))
 Base.hash(x::Single32, h::UInt64) = hash(Float64(x), h)
 
+Base.typemin(x::Single32)  = typemin(Float32)
+Base.typemax(x::Single32)  = typemax(Float32)
+Base.floatmin(x::Single32) = floatmin(Float32)
+Base.floatmax(x::Single32) = floatmax(Float32)
 
 # comparisons
 for Op in (:cmp, :(==), :(!=), :(>=), :(<=), :(>), :(<), :isless, :isequal)
