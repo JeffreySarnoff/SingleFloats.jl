@@ -24,7 +24,7 @@ The translation from an array of `Float32` to an array of `Single32` is done wit
 `my_data = Single32.(my_float32_data)`.  After completing the computational work, the translation
 back to `Float32` is just as easy: `my_float32_data = Float32.(my_data)`.
 
-The intent is to provide complete coverage of `Float32` ops.  You are welcome to request specifics.
+The intent is to provide robust coverage of `Float32` ops.  Let me know of requests. PRs welcome.
 
 ----
 
