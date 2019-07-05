@@ -73,15 +73,15 @@ Base.round(x::Single32, r::RoundingMode{:Down})    = Core.Intrinsics.floor_llvm(
 Base.round(x::Single32, r::RoundingMode{:Up})      = Core.Intrinsics.ceil_llvm(x)
 Base.round(x::Single32, r::RoundingMode{:Nearest}) = Core.Intrinsics.rint_llvm(x)
 
-Base.trunc(::Type{I}, x::Single32) where {I} = (I)(Core.Intrinsics.trunc_llvm(x))
-Base.floor(::Type{I}, x::Single32) where {I} = (I)(Core.Intrinsics.floor_llvm(x))
-Base.ceil(::Type{I}, x::Single32)  where {I} = (I)(Core.Intrinsics.ceil_llvm(x))
+Base.trunc(::Type{I}, x::Single32) where {I<:Integer} = (I)(Core.Intrinsics.trunc_llvm(x))
+Base.floor(::Type{I}, x::Single32) where {I<:Integer} = (I)(Core.Intrinsics.floor_llvm(x))
+Base.ceil(::Type{I}, x::Single32)  where {I<:Integer} = (I)(Core.Intrinsics.ceil_llvm(x))
 
-Base.round(::Type{I}, x::Single32, r::RoundingMode{:ToZero})  where {I} = (I)(Core.Intrinsics.trunc_llvm(x))
-Base.round(::Type{I}, x::Single32, r::RoundingMode{:Down})    where {I} = (I)(Core.Intrinsics.floor_llvm(x))
-Base.round(::Type{I}, x::Single32, r::RoundingMode{:Up})      where {I} = (I)(Core.Intrinsics.ceil_llvm(x))
-Base.round(::Type{I}, x::Single32, r::RoundingMode{:Nearest}) where {I} = (I)(Core.Intrinsics.rint_llvm(x))
-Base.round(::Type{I}, x::Single32) where {I} = (I)(Core.Intrinsics.rint_llvm(x))
+Base.round(::Type{I}, x::Single32, r::RoundingMode{:ToZero})  where {I<:Integer} = (I)(Core.Intrinsics.trunc_llvm(x))
+Base.round(::Type{I}, x::Single32, r::RoundingMode{:Down})    where {I<:Integer} = (I)(Core.Intrinsics.floor_llvm(x))
+Base.round(::Type{I}, x::Single32, r::RoundingMode{:Up})      where {I<:Integer} = (I)(Core.Intrinsics.ceil_llvm(x))
+Base.round(::Type{I}, x::Single32, r::RoundingMode{:Nearest}) where {I<:Integer} = (I)(Core.Intrinsics.rint_llvm(x))
+Base.round(::Type{I}, x::Single32) where {I<:Integer} = (I)(Core.Intrinsics.rint_llvm(x))
 
     
 Base.BigFloat(x::Single32) = BigFloat(Float64(x))
