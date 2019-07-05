@@ -17,6 +17,8 @@ Base.Int16(x::Single32) = Int16(Float64(x))
 
 Base.promote_rule(::Type{Single32}, ::Type{Float32}) = Single32
 Base.promote_rule(::Type{Single32}, ::Type{Float64}) = Single32
+Base.promote_rule(::Type{Single32}, ::Type{Int32}) = Single32
+Base.promote_rule(::Type{Single32}, ::Type{Int64}) = Single32
 
 convert(::Type{Single32}, x::Float64) = Single32(x)
 convert(::Type{Single32}, x::Float32) = Single32(x)
@@ -24,6 +26,8 @@ convert(::Type{Single32}, x::BigFloat) = Single32(x)
 convert(::Type{Float64}, x::Single32) = Float64(x)
 convert(::Type{Float32}, x::Single32) = Float32(x)
 convert(::Type{BigFloat}, x::Single32) = BigFloat(x)
+convert(::Type{Single32}, x::Int64) = Single32(x)
+convert(::Type{Single32}, x::Int32) = Single32(x)
 
 Base.show(io::IO, x::Single32) = show(io, Float32(x))
 Base.string(x::Single32) = string(Float32(x))
