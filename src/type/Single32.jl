@@ -46,10 +46,18 @@ Base.widen(x::Single32) = Float64(x)
 Base.hash(x::Single32) = hash(Float64(x))
 Base.hash(x::Single32, h::UInt64) = hash(Float64(x), h)
 
-Base.typemin(x::Single32)  = typemin(Float32)
-Base.typemax(x::Single32)  = typemax(Float32)
-Base.floatmin(x::Single32) = floatmin(Float32)
-Base.floatmax(x::Single32) = floatmax(Float32)
+Base.typemin(::Type{Single32})  = typemin(Float32)
+Base.typemax(::Type{Single32})  = typemax(Float32)
+Base.floatmin(::Type{Single32}) = floatmin(Float32)
+Base.floatmax(::Type{Single32}) = floatmax(Float32)
+Base.typemin(x::Single32)  = typemin(Single32)
+Base.typemax(x::Single32)  = typemax(Single32)
+Base.floatmin(x::Single32) = floatmin(Single32)
+Base.floatmax(x::Single32) = floatmax(Single32)
+
+Base.maxintfloat(::Type{Single32}) = maxintfloat(Float32)
+Base.maxintfloat(::Type{Single32}, ::Type{I}) where {I<:Integer} = maxintfloat(Float32, I)
+
 
 Base.eps(::Type{Single32}) = eps(Float64)
 Base.exponent(x::Single32) = exponent(Float64(x))
