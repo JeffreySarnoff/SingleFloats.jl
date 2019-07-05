@@ -7,42 +7,41 @@
 
 muladd(x::Single32, y::Single32, z::Single32) = muladd_float(x, y, z)
 
-+(x::Single32, y::Float64) = Core.Intrinsics.add_float(x, y)
--(x::Single32, y::Float64) = Core.Intrinsics.sub_float(x, y)
-*(x::Single32, y::Float64) = Core.Intrinsics.mul_float(x, y)
-/(x::Single32, y::Float64) = Core.Intrinsics.div_float(x, y)
++(x::Single32, y::Float64) = Core.Intrinsics.add_float(x, Single32(y))
+-(x::Single32, y::Float64) = Core.Intrinsics.sub_float(x, Single32(y))
+*(x::Single32, y::Float64) = Core.Intrinsics.mul_float(x, Single32(y))
+/(x::Single32, y::Float64) = Core.Intrinsics.div_float(x, Single32(y))
 
-+(x::Single32, y::Float32) = Core.Intrinsics.add_float(x, Float64(y))
--(x::Single32, y::Float32) = Core.Intrinsics.sub_float(x, Float64(y))
-*(x::Single32, y::Float32) = Core.Intrinsics.mul_float(x, Float64(y))
-/(x::Single32, y::Float32) = Core.Intrinsics.div_float(x, Float64(y))
++(x::Single32, y::Float32) = Core.Intrinsics.add_float(x, Single32(y))
+-(x::Single32, y::Float32) = Core.Intrinsics.sub_float(x, Single32(y))
+*(x::Single32, y::Float32) = Core.Intrinsics.mul_float(x, Single32(y))
+/(x::Single32, y::Float32) = Core.Intrinsics.div_float(x, Single32(y))
 
-+(x::Float64, y::Single32) = Core.Intrinsics.add_float(x, y)
--(x::Float64, y::Single32) = Core.Intrinsics.sub_float(x, y)
-*(x::Float64, y::Single32) = Core.Intrinsics.mul_float(x, y)
-/(x::Float64, y::Single32) = Core.Intrinsics.div_float(x, y)
++(x::Float64, y::Single32) = Core.Intrinsics.add_float(Single32(x), y)
+-(x::Float64, y::Single32) = Core.Intrinsics.sub_float(Single32(x), y)
+*(x::Float64, y::Single32) = Core.Intrinsics.mul_float(Single32(x), y)
+/(x::Float64, y::Single32) = Core.Intrinsics.div_float(Single32(x), y)
 
-+(x::Float32, y::Single32) = Core.Intrinsics.add_float(Float64(x), y)
--(x::Float32, y::Single32) = Core.Intrinsics.sub_float(Float64(x), y)
-*(x::Float32, y::Single32) = Core.Intrinsics.mul_float(Float64(x), y)
-/(x::Float32, y::Single32) = Core.Intrinsics.div_float(Float64(x), y)
++(x::Float32, y::Single32) = Core.Intrinsics.add_float(Single32(x), y)
+-(x::Float32, y::Single32) = Core.Intrinsics.sub_float(Single32(x), y)
+*(x::Float32, y::Single32) = Core.Intrinsics.mul_float(Single32(x), y)
+/(x::Float32, y::Single32) = Core.Intrinsics.div_float(Single32(x), y)
 
-muladd(x::Single32, y::Single32, z::Float64) = muladd_float(x, y, z)
-muladd(x::Single32, y::Float64, z::Single32) = muladd_float(x, y, z)
-muladd(x::Float64, y::Single32, z::Single32) = muladd_float(x, y, z)
+muladd(x::Single32, y::Single32, z::Float64) = muladd_float(x, y, Single32(z))
+muladd(x::Single32, y::Float64, z::Single32) = muladd_float(x, Single32(y), z)
+muladd(x::Float64, y::Single32, z::Single32) = muladd_float(Single32(x), y, z)
 
-muladd(x::Single32, y::Float64, z::Float64) = muladd_float(x, y, z)
-muladd(x::Float64, y::Single32, z::Float64) = muladd_float(x, y, z)
-muladd(x::Float64, y::Float64, z::Single32) = muladd_float(x, y, z)
+muladd(x::Single32, y::Float64, z::Float64) = muladd_float(x, Single32(y), Single32(z))
+muladd(x::Float64, y::Single32, z::Float64) = muladd_float(Single32(x), y, Single32(z))
+muladd(x::Float64, y::Float64, z::Single32) = muladd_float(Single32(x), Single32(y), z)
 
-muladd(x::Single32, y::Single32, z::Float32) = muladd_float(x, y, Float64(z))
-muladd(x::Single32, y::Float32, z::Single32) = muladd_float(x, Float64(y), z)
-muladd(x::Float32, y::Single32, z::Single32) = muladd_float(Float64(x), y, z)
+muladd(x::Single32, y::Single32, z::Float32) = muladd_float(x, y, Single32(z))
+muladd(x::Single32, y::Float32, z::Single32) = muladd_float(x, Single32(y), z)
+muladd(x::Float32, y::Single32, z::Single32) = muladd_float(Single32(x), y, z)
 
-muladd(x::Single32, y::Float32, z::Float32) = muladd_float(x, Float64(y), Float64(z))
-muladd(x::Float32, y::Single32, z::Float32) = muladd_float(Float64(x), y, Float64(z))
-muladd(x::Float32, y::Float32, z::Single32) = muladd_float(Float64(x), Float64(y), z)
-
+muladd(x::Single32, y::Float32, z::Float32) = muladd_float(x, Single32(y), Single32(z))
+muladd(x::Float32, y::Single32, z::Float32) = muladd_float(Single32(x), y, Single32(z))
+muladd(x::Float32, y::Float32, z::Single32) = muladd_float(Single32(x), Single32(y), z)
 
 
 # unary
