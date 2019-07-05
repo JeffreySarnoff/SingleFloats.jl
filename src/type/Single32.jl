@@ -41,6 +41,13 @@ Base.typemax(x::Single32)  = typemax(Float32)
 Base.floatmin(x::Single32) = floatmin(Float32)
 Base.floatmax(x::Single32) = floatmax(Float32)
 
+Base.eps(::Type{Single32}) = eps(Float32)
+Base.exponent(x::Single32) = exponent(Float64(x))
+Base.significand(x::Single32) = significand(Float64(x))
+Base.trunc(::Type{Int32}, x::Single32) = trunc(Int32, Float64(x))
+Base.round(x::Single32, ::RoundingMode{:Nearest}) = Single32(round(Float64(x))
+
+
 # comparisons
 for Op in (:cmp, :(==), :(!=), :(>=), :(<=), :(>), :(<), :isless, :isequal)
     @eval begin
