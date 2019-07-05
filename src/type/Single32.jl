@@ -82,9 +82,9 @@ Base.Int32(x::Single32) = Int32(Float64(x))
 Base.Int16(x::Single32) = Int16(Float64(x))
 
 Base.promote_rule(::Type{Single32}, ::Type{Float32}) = Single32
-Base.promote_rule(::Type{Single32}, ::Type{Float64}) = Single32
+Base.promote_rule(::Type{Single32}, ::Type{Float64}) = Single32 
 
-
+ 
 for T in (BigFloat, Float64, Float32, Float16,
           Int128, Int64, Int32, Int16, Int8,
           UInt128, UInt64, UInt32, UInt16, UInt8)
@@ -92,19 +92,48 @@ for T in (BigFloat, Float64, Float32, Float16,
     convert(::Type{Single32}, x::$T) = Single32(x)
     convert(::Type{$T}, x::Single32) = ($T)(x)    
   end
-end
-
+e nd
 
 
 # comparisons
+    
+==(x::Single32, y::Single32) = Core.Intrinsics.eq_float(x, y)
+==(x::Single32, y::Float64)  = Core.Intrinsics.eq_float(x, y)
+==(x::Float64, y::Single32)  = Core.Intrinsics.eq_float(x, y)
+!=(x::Single32, y::Single32) = Core.Intrinsics.ne_float(x, y)
+!=(x::Single32, y::Float64)  = Core.Intrinsics.ne_float(x, y)
+!=(x::Float64, y::Single32)  = Core.Intrinsics.ne_float(x, y)
+<( x::Single32, y::Single32) = Core.Intrinsics.lt_float(x, y)
+<( x::Single32, y::Float64)  = Core.Intrinsics.lt_float(x, y)
+<( x::Float64, y::Single32)  = Core.Intrinsics.lt_float(x, y)
+<=(x::Single32, y::Single32) = Core.Intrinsics.le_float(x, y)
+<=(x::Single32, y::Float64)  = Core.Intrinsics.le_float(x, y)
+<=(x::Float64, y::Single32)  = Core.Intrinsics.le_float(x, y)
+
+isequal(x::Single32, y::Single32) = Core.Intrinsics.fpiseq(x, y)
+isequal(x::Single32, y::Float64)  = Core.Intrinsics.fpiseq(x, y)
+isequal(x::Float64, y::Single32)  = Core.Intrinsics.fpiseq(x, y)
+isless( x::Single32, y::Single32) = Core.Intrinsics.fpislt(x, y)
+isless( x::Single32, y::Float64)  = Core.Intrinsics.fpislt(x, y)
+isless( x::Float64, y::Single32)  = Core.Intrinsics.fpislt(x, y)
+
+==(x::Single32, y::Float32) = Core.Intrinsics.eq_float(x, Float64(y))
+==(x::Float32, y::Single32) = Core.Intrinsics.eq_float(Float64(x), y)
+!=(x::Single32, y::Float32) = Core.Intrinsics.ne_float(x, Float64(y))
+!=(x::Float32, y::Single32) = Core.Intrinsics.ne_float(Float64(x), y)
+<( x::Single32, y::Float32) = Core.Intrinsics.lt_float(x, Float64(y))
+<( x::Float32, y::Single32) = Core.Intrinsics.lt_float(Float64(x), y)
+<=(x::Single32, y::Float32) = Core.Intrinsics.le_float(x, Float64(y))
+<=(x::Float32, y::Single32) = Core.Intrinsics.le_float(Float64(x), y)
+
+isequal(x::Single32, y::Float32) = Core.Intrinsics.fpiseq(x, Float64(y))
+isequal(x::Float32, y::Single32) = Core.Intrinsics.fpiseq(Float64(x), y)
+isless( x::Single32, y::Float32) = Core.Intrinsics.fpislt(x, Float64(y))
+isless( x::Float32, y::Single32) = Core.Intrinsics.fpislt(Float64(x), y)
+    
+    
 for Op in (:cmp, :(==), :(!=), :(>=), :(<=), :(>), :(<), :isless, :isequal)
     @eval begin
-        $Op(x::Single32, y::Single32) = $Op(Float64(x), Float64(y))
-        
-        $Op(x::Single32, y::Float64) = $Op(Float64(x), y)
-        $Op(x::Float64, y::Single32) = $Op(x, Float64(y))
-        $Op(x::Single32, y::Float32) = $Op(Float64(x), Float64(y))
-        $Op(x::Float32, y::Single32) = $Op(Float64(x), Float64(y))
         $Op(x::Single32, y::Float16) = $Op(Float64(x), Float64(y))
         $Op(x::Float16, y::Single32) = $Op(Float64(x), Float64(y))
         
