@@ -29,7 +29,10 @@ function muddybits(::Type{T}) where T
 end
 
 
-(Single32 = muddybits(Single32), Float32 = muddybits(Float32), Float64 = muddybits(Float64))
+(Single32 = muddybits(Single32),
+ Float32  = muddybits(Float32),
+ Float64  = muddybits(Float64))
+
 (Single32 = 0, Float32 = 6, Float64 = 7)
 
 
