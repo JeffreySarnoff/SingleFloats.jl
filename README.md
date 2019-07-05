@@ -34,6 +34,9 @@ function muddybits(::Type{T}) where T
 end
 
 
+#  How many low-order bits of these type's significands have become
+#  opaque, replacing confirmatory valuation with inessential noise?
+
 (Single32 = muddybits(Single32),
  Float32  = muddybits(Float32),
  Float64  = muddybits(Float64))
