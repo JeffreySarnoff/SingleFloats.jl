@@ -1,5 +1,5 @@
 # unary
-for Op in (:+, :-, :sqrt, :cbrt, :rad2deg, :deg2rad, :mod2pi, :rem2pi, :abs, :abs2, :sign, :floor, :ceil, :trunc, :round)
+for Op in (:+, :-, :sqrt, :cbrt, :rad2deg, :deg2rad, :mod2pi, :rem2pi, :abs, :abs2, :sign)
     @eval $Op(x::Single32) = Single32($Op(Float64(x)))
 end
 for Op in (:exp, :exp2, :exp10, :expm1, :log, :log2, :log10, :log1p,
