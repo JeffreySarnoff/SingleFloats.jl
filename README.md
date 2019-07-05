@@ -11,26 +11,26 @@ Float32 results are computed using Float64s
 ```
 using SingleFloats
 
-julia> sum(cot.(Float64.(collect(1.0:20)))),sum(cot.(reverse(Float64.(collect(1.0:20)))))
-(-0.03787685043096911, -0.03787685043097011)
-julia> ans[1] == nextfloat(ans[2], 144)  # trailing 8 significant bits
-true
- 
-julia> sum(cot.(Float32.(collect(1.0:20)))),sum(cot.(reverse(Float32.(collect(1.0:20)))))
-(-0.03787771f0, -0.03787744f0)
+fwdxs(::Type{T}) where T  = T.(collect(1.0:20.0))
+fwdys(::Type{T}) where T  = cot.(fwdxs(T))
+fwdsum(::Type{T}) where T = sum(fwdys(T))
 
-julia> sum(cot.(Float32.(collect(1.0:20)))),sum(cot.(reverse(Float32.(collect(1.0:20)))))
-(-0.03787771f0, -0.03787744f0)
-julia> Int( abs(ans[1]-ans[2]) / eps((ans[1]+ans[2])/2) )
-72
-julia> sum(cot.(Float32.(collect(1.0:20)))),sum(cot.(reverse(Float32.(collect(1.0:20)))))
-(-0.03787771f0, -0.03787744f0)
-julia>  ans[1] == prevfloat(ans[2], 72) # trailing 7 significant bits
-true
+revxs(::Type{T}) where T  = reverse(fwdxs(T))
+revys(::Type{T}) where T  = cot.(revxs(T))
+revsum(::Type{T}) where T = sum(revys(T))
 
-julia> sum(cot.(Single32.(collect(1.0:20)))),sum(cot.(reverse(Single32.(collect(1.0:20)))))
-(-0.03787685f0, -0.03787685f0)
-julia> ans[1] == ans[2]
-true
+function muddybits(::Type{T}) where T
+   fwd = fwdsum(T)
+   rev = revsum(T)
+   epsavg = eps((fwd + rev)/2)
+   muddy = round(Int32, abs(fwd - rev) / epsavg)
+   lsbits = 31 - leading_zeros(muddy)
+   return max(0, lsbits)
+end
+
+
+(Single32 = muddybits(Single32), Float32 = muddybits(Float32), Float64 = muddybits(Float64))
+(Single32 = 0, Float32 = 6, Float64 = 7)
+
 
 ```
