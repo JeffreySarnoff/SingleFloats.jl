@@ -55,10 +55,6 @@ Base.eps(::Type{Single32}) = eps(Float64)
 Base.exponent(x::Single32) = exponent(Float64(x))
 Base.significand(x::Single32) = significand(Float64(x))
 
-Base.trunc(::Type{Int32}, x::Single32) = trunc(Int32, Float64(x))
-Base.round(x::Single32, ::RoundingMode{:Nearest}) = Single32(round(Float64(x))
-Base.floor(::Type{Int32}, x::Single32) = trunc(Int32, Float64(x))
-Base.ceil(::Type{Int32}, x::Single32) = trunc(Int32, Float64(x))
 
 Base.trunc(x::Single32) = Core.Intrinsics.trunc_llvm(x)
 Base.floor(x::Single32) = Core.Intrinsics.floor_llvm(x)
