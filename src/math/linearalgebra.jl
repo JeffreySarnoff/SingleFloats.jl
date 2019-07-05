@@ -26,3 +26,11 @@ end
 for Op in (:eigvals, :eigvecs, :svdvals, :svd)
     @eval $Op(x::Array{Single32,2}, y::Array{Single32,2}) = Single32.($Op(Float64.(x), Float64.(y)))
 end
+
+for Op in (:sqrt, :exp, :log,
+           :sin, :cos, :tan, :csc, :sec, :cot, 
+           :asin, :acos, :atan, :acsc, :asec, :acot,            
+           :sinh, :cosh, :tanh, :csch, :sech, :coth, 
+           :asinh, :acosh, :atanh, :acsch, :asech, :acoth)
+    @eval $Op(x::Array{Single32,2}) = Single32.($Op(Float64.(x)))
+end
