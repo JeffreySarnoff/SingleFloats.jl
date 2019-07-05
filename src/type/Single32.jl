@@ -119,7 +119,6 @@ for Op in (:cmp, :(==), :(!=), :(>=), :(<=), :(>), :(<), :isless, :isequal)
         $Op(x::Int32, y::Single32)  = $Op(x, Float64(y))
         $Op(x::Single32, y::Int16)  = $Op(Float64(x), y)
         $Op(x::Int16, y::Single32)  = $Op(x, Float64(y))
-        $Op(x::Single32, y::Int128) = $Op(Float64(x), y)
 
         $Op(x::Single32, y::UInt128) = $Op(Float64(x), y)
         $Op(x::UInt128, y::Single32) = $Op(x, Float64(y))
@@ -129,6 +128,5 @@ for Op in (:cmp, :(==), :(!=), :(>=), :(<=), :(>), :(<), :isless, :isequal)
         $Op(x::UInt32, y::Single32)  = $Op(x, Float64(y))
         $Op(x::Single32, y::UInt16)  = $Op(Float64(x), y)
         $Op(x::UInt16, y::Single32)  = $Op(x, Float64(y))
-        $Op(x::Single32, y::UInt128) = $Op(Float64(x), y)
     end
 end
