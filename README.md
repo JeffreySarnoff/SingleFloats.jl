@@ -25,9 +25,9 @@ After completing the computational work, the translation back to `Float32` is ju
 ```
 using SingleFloats
 
-my_data = Single32.(my_float32_data)
-
-my_float32_data = Float32.(my_data)
+data_at_work  = Single32.(original_data_is_float32)
+value_obtains = process(data_at_work)
+resultant_data_is_float32 = Float32.(value_obtains)
 ```
 
 The intent is to provide robust coverage of `Float32` ops.  Let me know of requests. PRs welcome.
