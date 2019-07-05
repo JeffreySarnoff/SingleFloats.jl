@@ -40,7 +40,7 @@ Base.show(io::IO, x::Single32) = show(io, Float32(x))
 Base.string(x::Single32) = string(Float32(x))
 Base.repr(x::Single32) = string("Single32(",repr(Float64(x)),")")
 
-Base.widen(Single32) = Float64
+Base.widen(::Type{Single32}) = Float64
 Base.widen(x::Single32) = Float64(x)
 
 Base.hash(x::Single32) = hash(Float64(x))
