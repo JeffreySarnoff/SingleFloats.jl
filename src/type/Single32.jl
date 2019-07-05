@@ -173,3 +173,6 @@ for Op in (:cmp, :(==), :(!=), :(>=), :(<=), :(>), :(<), :isless, :isequal)
         $Op(x::UInt16, y::Single32)  = $Op(x, Float64(y))
     end
 end
+
+decompose(x::Single32) = decompose(Float64(x))
+
