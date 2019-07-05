@@ -29,7 +29,7 @@ for T in (Int128, UInt128)
   @eval begin
      promote_rule(::Type{Single32}, ::Type{$T}) = Single32
      Single32(x::$T) = Single32(Float64(x))
-     convert(::Type{Single32}, x::Int128) = Single32(x)
+     convert(::Type{Single32}, x::$T) = Single32(x)
    end
 end
 
