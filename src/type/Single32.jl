@@ -92,7 +92,7 @@ for T in (BigFloat, Float64, Float32, Float16,
     convert(::Type{Single32}, x::$T) = Single32(x)
     convert(::Type{$T}, x::Single32) = ($T)(x)    
   end
-e nd
+end
 
 
 # comparisons
