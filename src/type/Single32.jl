@@ -1,5 +1,3 @@
-import Base: promote_rule, convert
-
 primitive type Single32 <: AbstractFloat 64 end
 
 Single32(x::Single32) = x
@@ -58,6 +56,8 @@ Base.floatmax(x::Single32) = floatmax(Single32)
 Base.maxintfloat(::Type{Single32}) = maxintfloat(Float32)
 Base.maxintfloat(::Type{Single32}, ::Type{I}) where {I<:Integer} = maxintfloat(Float32, I)
 
+prevfloat(x::Single32, n::Int) = Single32(prevfloat(Float32(x), n))
+nextfloat(x::Single32, n::Int) = Single32(nextfloat(Float32(x), n))
 
 Base.eps(::Type{Single32}) = eps(Float64)
 Base.exponent(x::Single32) = exponent(Float64(x))
