@@ -20,9 +20,15 @@ that they afford, it is __necessary__ that you do not reach inside these values 
 part that is not shown in regular use.  This works only if the values you provide are Float32s and
 the values you obtain are Float32s.
 
-The translation from an array of `Float32` to an array of `Single32` is done with broadcasting:
-`my_data = Single32.(my_float32_data)`.  After completing the computational work, the translation
-back to `Float32` is just as easy: `my_float32_data = Float32.(my_data)`.
+The translation from an array of `Float32` to an array of `Single32` is done with broadcasting.
+After completing the computational work, the translation back to `Float32` is just as easy:
+```
+using SingleFloats
+
+my_data = Single32.(my_float32_data)
+
+my_float32_data = Float32.(my_data)
+```
 
 The intent is to provide robust coverage of `Float32` ops.  Let me know of requests. PRs welcome.
 
