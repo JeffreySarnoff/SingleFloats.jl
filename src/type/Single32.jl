@@ -29,7 +29,6 @@ for T in (Int128, UInt128)
   @eval begin
      promote_rule(::Type{Single32}, ::Type{$T}) = Single32
      Single32(x::$T) = Single32(Float64(x))
-     convert(::Type{Single32}, x::$T) = Single32(x)
    end
 end
 
@@ -84,8 +83,6 @@ Base.Int16(x::Single32) = Int16(Float64(x))
 
 Base.promote_rule(::Type{Single32}, ::Type{Float32}) = Single32
 Base.promote_rule(::Type{Single32}, ::Type{Float64}) = Single32
-Base.promote_rule(::Type{Single32}, ::Type{Int32}) = Single32
-Base.promote_rule(::Type{Single32}, ::Type{Int64}) = Single32
 
 
 for T in (BigFloat, Float64, Float32, Float16,
