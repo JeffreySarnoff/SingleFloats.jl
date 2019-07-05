@@ -8,8 +8,27 @@ Float32 results are computed using Float64s
 [![Travis Build Status](https://travis-ci.org/JeffreySarnoff/SingleFloats.jl.svg?branch=master)](https://travis-ci.org/JeffreySarnoff/SingleFloats.jl) [![codecov](https://codecov.io/gh/JeffreySarnoff/SingleFloats.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/JeffreySarnoff/SingleFloats.jl)
 ----
 
+There is one export, the type `Single32`.  Use it in place of `Float32` for results that are more reliable,
+reporting numerical results with greater accuracy through the low-order bits of significands' precision.
 
-### Additional reliability comes with using `Simple32s`.
+`Single32` values look like `Float32` values and act like `Float32` values.  Their computational results
+are exceed the expectations for accuracy with `Float32s`.  With relatively stable algorithms, `Single32s`
+are much better at preserving information present in significands' low-order bits.
+
+Mathematical operations with `Single32s` are computed using `Float64` internally.  To get the benefit
+that they afford, it is __necessary__ that you do not reach inside these values to see or to use any
+part that is not shown in regular use.  This works only if the values you provide are Float32s and
+the values you obtain are Float32s.
+
+The translation from an array of `Float32` to an array of `Single32` is done with broadcasting:
+`my_data = Single32.(my_float32_data)`.  After completing the computational work, the translation
+back to `Float32` is just as easy: `my_float32_data = Float32.(my_data)`.
+
+The intent is to provide complete coverage of `Float32` ops.  You are welcome to request specifics.
+
+----
+
+### Additional reliability comes with using `Single32s`.
 
 ```
 using SingleFloats
