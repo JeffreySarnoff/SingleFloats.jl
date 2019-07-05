@@ -8,22 +8,26 @@ Float32 results are computed using Float64s
 [![Travis Build Status](https://travis-ci.org/JeffreySarnoff/SingleFloats.jl.svg?branch=master)](https://travis-ci.org/JeffreySarnoff/SingleFloats.jl) [![codecov](https://codecov.io/gh/JeffreySarnoff/SingleFloats.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/JeffreySarnoff/SingleFloats.jl)
 ----
 
+### Showing the additional reliability that comes with using `Simple32s`.
+
 ```
 using SingleFloats
 
-fwdxs(::Type{T}) where T  = T.(collect(1.0:20.0))
-fwdys(::Type{T}) where T  = cot.(fwdxs(T))
-fwdsum(::Type{T}) where T = sum(fwdys(T))
+xs_fwd(::Type{T}) where T = T.(collect(1.0:20.0))
+ys_fwd(::Type{T}) where T = cot.(xs_fwd(T))
+sumfwd(::Type{T}) where T = sum(ys_fwd(T))
 
-revxs(::Type{T}) where T  = reverse(fwdxs(T))
-revys(::Type{T}) where T  = cot.(revxs(T))
-revsum(::Type{T}) where T = sum(revys(T))
+xs_rev(::Type{T}) where T = reverse(xs_fwd(T))
+ys_rev(::Type{T}) where T = cot.(xs_rev(T))
+sumrev(::Type{T}) where T = sum(ys_rev(T))
+
+epsmax(a, b) = eps(max(a, b))
 
 function muddybits(::Type{T}) where T
-   fwd = fwdsum(T)
-   rev = revsum(T)
-   epsavg = eps((fwd + rev)/2)
-   muddy = round(Int32, abs(fwd - rev) / epsavg)
+   fwd = sumfwd(T)
+   rev = sumrev(T)
+   muddy = round(Int32, abs(fwd - rev) / epsmax(fwd, rev))
+
    lsbits = 31 - leading_zeros(muddy)
    return max(0, lsbits)
 end
