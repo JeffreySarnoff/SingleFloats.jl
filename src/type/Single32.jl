@@ -34,6 +34,7 @@ end
 
 Bool(x::Single32) = x==0 ? false : x==1 ? true : throw(InexactError(:Bool, Bool, x))
 
+Single32(x::Irrational{S}) where S = Single32(Float64(x))
 
 Base.show(io::IO, x::Single32) = show(io, Float32(x))
 Base.string(x::Single32) = string(Float32(x))
