@@ -6,6 +6,7 @@ using Base: IEEEFloat
 import Base: promote_rule, convert
 import Base: cmp, ==, !=, >=, >, <=, <, isless, isequal
 import Base: +, -, *, /, \, %, √, ÷
+import Base: prevfloat, nextfloat, exponent, significand
 import Base: ^, sqrt, cbrt, ∛, div, rem, fld, mod, cld, hypot, min, max, minmax, rad2deg, deg2rad, mod2pi, rem2pi
 import Base: abs, abs2, sign, copysign, flipsign, floor, ceil, trunc, round, divrem, fldmod, clamp
 import Base: exp, exp2, exp10, expm1, log, log2, log10, log1p, 
