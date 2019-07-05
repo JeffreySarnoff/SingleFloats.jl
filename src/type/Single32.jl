@@ -15,6 +15,8 @@ Base.Int64(x::Single32) = Int64(Float64(x))
 Base.Int32(x::Single32) = Int32(Float64(x))
 Base.Int16(x::Single32) = Int16(Float64(x))
 
+Base.promote_rule(::Type{Single32}, ::Type{Float32}) = Single32
+Base.promote_rule(::Type{Single32}, ::Type{Float64}) = Single32
 
 convert(::Type{Single32}, x::Float64) = Single32(x)
 convert(::Type{Single32}, x::Float32) = Single32(x)
