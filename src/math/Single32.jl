@@ -12,7 +12,7 @@ muladd(x::Single32, y::Float64, z::Single32) = Single32(muladd(Float64(x), y, Fl
 muladd(x::Float64, y::Single32, z::Single32) = Single32(muladd(x, Float64(y), Float64(z)))
 muladd(x::Single32, y::Float64, z::Float64) = Single32(muladd(Float64(x), y, z))
 muladd(x::Float64, y::Single32, z::Float64) = Single32(muladd(x, Float64(y), z))
-muladd(x::Single32, y::Float64, z::Float64) = Single32(muladd(Float64(x), y, z))
+muladd(x::Float64, z::Float64, z::Single32) = Single32(muladd(x, y, Float64(z)))
 
 fma(x::Single32, y::Single32, z::Single32) = Single32(fma(Float64(x), Float64(y), Float64(z)))
 fma(x::Single32, y::Single32, z::Float64) = Single32(fma(Float64(x), Float64(y), z))
@@ -20,21 +20,21 @@ fma(x::Single32, y::Float64, z::Single32) = Single32(fma(Float64(x), y, Float64(
 fma(x::Float64, y::Single32, z::Single32) = Single32(fma(x, Float64(y), Float64(z)))
 fma(x::Single32, y::Float64, z::Float64) = Single32(fma(Float64(x), y, z))
 fma(x::Float64, y::Single32, z::Float64) = Single32(fma(x, Float64(y), z))
-fma(x::Single32, y::Float64, z::Float64) = Single32(fma(Float64(x), y, z))
+fma(x::Float64, y::Float64, z::Single32) = Single32(fma(x, y, Float64(z)))
 
 muladd(x::Single32, y::Single32, z::Float32) = Single32(muladd(Float64(x), Float64(y), Float64(z)))
 muladd(x::Single32, y::Float32, z::Single32) = Single32(muladd(Float64(x), Float64(y), Float64(z)))
 muladd(x::Float32, y::Single32, z::Single32) = Single32(muladd(Float64(x), Float64(y), Float64(z)))
 muladd(x::Single32, y::Float32, z::Float32) = Single32(muladd(Float64(x), Float64(y), Float64(z)))
 muladd(x::Float32, y::Single32, z::Float32) = Single32(muladd(Float64(x), Float64(y), Float64(z)))
-muladd(x::Single32, y::Float32, z::Float32) = Single32(muladd(Float64(x), Float64(y), Float64(z)))
+muladd(x::Float32, y::Float32, z::Single32) = Single32(muladd(Float64(x), Float64(y), Float64(z)))
 
 fma(x::Single32, y::Single32, z::Float32) = Single32(fma(Float64(x), Float64(y), Float64(z)))
 fma(x::Single32, y::Float32, z::Single32) = Single32(fma(Float64(x), Float64(y), Float64(z)))
 fma(x::Float32, y::Single32, z::Single32) = Single32(fma(Float64(x), Float64(y), Float64(z)))
 fma(x::Single32, y::Float32, z::Float32) = Single32(fma(Float64(x), Float64(y), Float64(z)))
 fma(x::Float32, y::Single32, z::Float32) = Single32(fma(Float64(x), Float64(y), Float64(z)))
-fma(x::Single32, y::Float32, z::Float32) = Single32(fma(Float64(x), Float64(y), Float64(z)))
+fma(x::Float32, y::Float32, z::Single32) = Single32(fma(Float64(x), Float64(y), Float64(z)))
 
 +(x::Single32, y::Float64) = Core.Intrinsics.add_float(x, Single32(y))
 -(x::Single32, y::Float64) = Core.Intrinsics.sub_float(x, Single32(y))
