@@ -1,4 +1,22 @@
-*(a::Matrix{Single32}, b::Matrix{Single32}) = view(a,:,:) * view(b,:,:)
+function Base.:(*)(m2::Matrix{Single32}, m3::Matrix{Single32})
+    m1 = view(Float64.(m2),:,:) * view(Float64.(m3),:,:)
+    return Single32.(m1)
+end
+
+function LinearAlgebra.mul!(m1::Matrix{Single32}, m2::Matrix{Single32}, m3::Matrix{Single32})
+    m1 = view(Float64.(m2),:,:)*view(Float64.(m3),:,:)
+    return Single32.(m1)
+end
+
+function LinearAlgebra.rmul!(m2::Matrix{Single32}, m3::Matrix{Single32})
+    m2 = view(Float64.(m2),:,:)*view(Float64.(m3),:,:)
+    return Single32.(m2)
+end
+
+function LinearAlgebra.lmul!(m2::Matrix{Single32}, m3::Matrix{Single32})
+    m3 = view(Float64.(m2),:,:)*view(Float64.(m3),:,:)
+    return Single32.(m3)
+end
 
 LinearAlgebra.exp!(x::Array{Complex{Single32},2}) = Complex{Single32}.(LinearAlgebra.exp!(Complex{Float64}.(x)))
 
