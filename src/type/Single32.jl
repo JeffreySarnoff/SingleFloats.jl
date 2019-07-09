@@ -140,7 +140,7 @@ isless( x::Float64, y::Single32)  = Core.Intrinsics.fpislt(x, Float64(y))
 <( x::Single32, y::Float32) = Core.Intrinsics.lt_float(Float32(x), y)
 <( x::Float32, y::Single32) = Core.Intrinsics.lt_float(x, Float32(y))
 <=(x::Single32, y::Float32) = Core.Intrinsics.le_float(Float32(x), y)
-<=(x::Float32, y::Single32) = Core.Intrinsics.le_float(Float64(x), y)
+<=(x::Float32, y::Single32) = Core.Intrinsics.le_float(x, Float32(y))
 
 isequal(x::Single32, y::Float32) = Core.Intrinsics.fpiseq(Float32(x), y)
 isequal(x::Float32, y::Single32) = Core.Intrinsics.fpiseq(x, Float32(y))
