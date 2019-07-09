@@ -19,6 +19,9 @@ for Op in (:transpose, :adjoint, :inv, :pinv)
     @eval $Op(x::Array{Single32,2}) = Single32.($Op(Float64.(x)))
 end
 
+lu(x::Array{Single32,2}) = lu(view(x,:,:))
+qr(x::Array{Single32,2}) = qr(view(x,:,:))
+
 #=
 for Op in (:lu, :lu!, :qr, :qr!, :schur, :schur!)
     @eval $Op(x::Array{Single32,2}) = Single32.($Op(Float64.(x)))
