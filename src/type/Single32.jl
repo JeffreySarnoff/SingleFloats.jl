@@ -5,6 +5,8 @@ Single32(x::Single32) = x
 Single32(x::Float64)  = reinterpret(Single32, x)
 Single32(x::Float32)  = Core.Intrinsics.fpext(Single32, x)
 Single32(x::Float16)  = reinterpret(Single32, Float64(x))
+Single32(x::BigFloat) = Single32(Float64(x))
+Single32(x::BigInt) = Single32(Float64(x))
 
 Base.Float64(x::Single32)  = reinterpret(Float64, x)
 Base.Float32(x::Single32)  = Core.Intrinsics.fptrunc(Float32, x)
