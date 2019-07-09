@@ -1,5 +1,5 @@
-for Op in (:iszero, :isone, :isdiag, :issymmetric, :isdiag,
-           :ishermitian, :isposdef, :isposdef!, :istril, :istriu)
+for Op in (:iszero, :isone, :isdiag, :issymmetric, :ishermitian,
+           :isposdef, :isposdef!, :istril, :istriu)
     @eval $Op(x::Array{Single32,2}) = $Op(Float64.(x))
 end
 
