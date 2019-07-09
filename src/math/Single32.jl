@@ -45,12 +45,10 @@ muladd(x::Float32, y::Float32, z::Single32) = muladd_float(Single32(x), Single32
 
 
 # unary
-for Op in (:+, :sqrt, :cbrt, :rad2deg, :deg2rad, :mod2pi, :rem2pi, :abs, :abs2, :sign)
+for Op in (:+, :cbrt, :rad2deg, :deg2rad, :mod2pi, :rem2pi, :abs, :abs2, :sign)
     @eval $Op(x::Single32) = Single32($Op(Float64(x)))
 end
-for Op in (:exp, :exp2, :exp10, :expm1, :log, :log2, :log10, :log1p,
-           :sin, :cos, :tan, :csc, :sec, :cot, :asin, :acos, :atan, :acsc, :asec, :acot,
-           :sinh, :cosh, :tanh, :csch, :sech, :coth, :asinh, :acosh, :atanh, :acsch, :asech, :acoth)
+for Op in (:exp2, :exp10, :expm1, :log2, :log10, :log1p)
     @eval $Op(x::Single32) = Single32($Op(Float64(x)))
 end
 # binary
