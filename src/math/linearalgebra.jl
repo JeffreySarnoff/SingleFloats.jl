@@ -1,16 +1,23 @@
+*(a::Matrix{Single32}, b::Matrix{Single32}) = view(a,:,:) * view(b,:,:)
+
 for Op in (:iszero, :isone, :isdiag, :issymmetric, :ishermitian,
            :isposdef, :isposdef!, :istril, :istriu)
-    @eval $Op(x::Array{Single32,2}) = $Op(Float64.(x))
+    @eval $Op(x::Array{Single32,2}) = $Op(view(x,:,:))
 end
 
-for Op in (:rank, :cond, :norm, :opnorm, :det, :tr)
+for Op in (:rank, :cond, :opnorm)
     @eval $Op(x::Array{Single32,2}) = Single32($Op(Float64.(x)))
+end
+
+for Op in (:norm, :det, :tr)
+    @eval $Op(x::Array{Single32,2}) = Single32($Op(view(x,:,:)))
 end
  
 for Op in (:transpose, :adjoint, :inv, :pinv)
     @eval $Op(x::Array{Single32,2}) = Single32.($Op(Float64.(x)))
 end
 
+#=
 for Op in (:lu, :lu!, :qr, :qr!, :schur, :schur!)
     @eval $Op(x::Array{Single32,2}) = Single32.($Op(Float64.(x)))
 end
@@ -18,6 +25,7 @@ end
 for Op in (:cholesky, :cholesky!, :hessenberg, :hessenberg!, :factorize)
     @eval $Op(x::Array{Single32,2}) = Single32.($Op(Float64.(x)))
 end
+=#
 
 for Op in (:eigvals, :eigvals!, :svdvals, :svdvals!, :svd)
     @eval $Op(x::Array{Single32,2}) = Single32.($Op(Float64.(x)))
