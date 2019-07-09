@@ -33,7 +33,7 @@ muladd(x::Single32, y::Float64, z::Single32) = Single32(muladd(Float64(x), y, Fl
 muladd(x::Float64, y::Single32, z::Single32) = Single32(muladd(x, Float64(y), Float64(z)))
 muladd(x::Single32, y::Float64, z::Float64) = Single32(muladd(Float64(x), y, z))
 muladd(x::Float64, y::Single32, z::Float64) = Single32(muladd(x, Float64(y), z))
-muladd(x::Float64, z::Float64, z::Single32) = Single32(muladd(x, y, Float64(z)))
+muladd(x::Float64, y::Float64, z::Single32) = Single32(muladd(x, y, Float64(z)))
 
 fma(x::Single32, y::Single32, z::Single32) = Single32(fma(Float64(x), Float64(y), Float64(z)))
 fma(x::Single32, y::Single32, z::Float64) = Single32(fma(Float64(x), Float64(y), z))
