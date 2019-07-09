@@ -1,5 +1,7 @@
 *(a::Matrix{Single32}, b::Matrix{Single32}) = view(a,:,:) * view(b,:,:)
 
+LinearAlgebra.exp!(x::Array{Complex{Single32},2}) = Complex{Single32}.(LinearAlgebra.exp!(Complex{Float64}.(x)))
+
 for Op in (:iszero, :isone, :isdiag, :issymmetric, :ishermitian,
            :isposdef, :isposdef!, :istril, :istriu)
     @eval $Op(x::Array{Single32,2}) = $Op(view(x,:,:))
