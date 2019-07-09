@@ -1,4 +1,5 @@
 -(x::Single32) = Core.Intrinsics.neg_float(x)
+inv(x::Single32) = Core.Intrinsics.div_float(one(Single32), x)
 
 +(x::Single32, y::Single32) = Core.Intrinsics.add_float(x, y)
 -(x::Single32, y::Single32) = Core.Intrinsics.sub_float(x, y)
@@ -45,7 +46,7 @@ muladd(x::Float32, y::Float32, z::Single32) = muladd_float(Single32(x), Single32
 
 
 # unary
-for Op in (:+, :cbrt, :rad2deg, :deg2rad, :mod2pi, :rem2pi, :abs, :abs2, :sign)
+for Op in (:+, :cbrt, :rad2deg, :deg2rad, :mod2pi, :rem2pi, :abs, :abs2, :sign, sqrt)
     @eval $Op(x::Single32) = Single32($Op(Float64(x)))
 end
 for Op in (:exp2, :exp10, :expm1, :log2, :log10, :log1p)
