@@ -117,7 +117,7 @@ Single32(x::Rational{T}) where {T} = Single32(Float64(x))
 Rational{T}(x::Single32; tol=eps(x)) where {T} = Rational{T}(rationalize(Float64(x), tol=tol))
 
 promote_rule(::Type{Single32}, ::Type{Rational}) = Single32
-convert(::Type{Single32, x::Rational) = Single32(x)
+convert(::Type{Single32}, x::Rational) = Single32(x)
 
 # comparisons
     
