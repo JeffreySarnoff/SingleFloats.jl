@@ -1,3 +1,33 @@
+-(x::Single32) = Single32(-Float64(x))
+inv(x::Single32) = Single32(inv(Float64(x)))
+
++(x::Single32, y::Single32) = Single32(Float64(x) + Float64(y))
+-(x::Single32, y::Single32) = Single32(Float64(x) + Float64(y))
+*(x::Single32, y::Single32) = Single32(Float64(x) + Float64(y))
+/(x::Single32, y::Single32) = Single32(Float64(x) + Float64(y))
+
++(x::Single32, y::Float64) = Single32(Float64(x) + y)
+-(x::Single32, y::Float64) = Single32(Float64(x) + y)
+*(x::Single32, y::Float64) = Single32(Float64(x) + y)
+/(x::Single32, y::Float64) = Single32(Float64(x) + y)
+
++(x::Float64, y::Single32) = Single32(x + Float64(y))
+-(x::Float64, y::Single32) = Single32(x + Float64(y))
+*(x::Float64, y::Single32) = Single32(x + Float64(y))
+/(x::Float64, y::Single32) = Single32(x + Float64(y))
+
++(x::Single32, y::Float32) = Single32(Float64(x) + Float64(y))
+-(x::Single32, y::Float32) = Single32(Float64(x) + Float64(y))
+*(x::Single32, y::Float32) = Single32(Float64(x) + Float64(y))
+/(x::Single32, y::Float32) = Single32(Float64(x) + Float64(y))
+
++(x::Float32, y::Single32) = Single32(Float64(x) + Float64(y))
+-(x::Float32, y::Single32) = Single32(Float64(x) + Float64(y))
+*(x::Float32, y::Single32) = Single32(Float64(x) + Float64(y))
+/(x::Float32, y::Single32) = Single32(Float64(x) + Float64(y))
+
+
+#=
 -(x::Single32) = Core.Intrinsics.neg_float(x)
 inv(x::Single32) = Core.Intrinsics.div_float(one(Single32), x)
 
@@ -25,7 +55,7 @@ inv(x::Single32) = Core.Intrinsics.div_float(one(Single32), x)
 -(x::Float32, y::Single32) = Core.Intrinsics.sub_float(Single32(x), y)
 *(x::Float32, y::Single32) = Core.Intrinsics.mul_float(Single32(x), y)
 /(x::Float32, y::Single32) = Core.Intrinsics.div_float(Single32(x), y)
-
+=#
 
 muladd(x::Single32, y::Single32, z::Single32) = Single32(muladd(Float64(x), Float64(y), Float64(z)))
 muladd(x::Single32, y::Single32, z::Float64) = Single32(muladd(Float64(x), Float64(y), z))
