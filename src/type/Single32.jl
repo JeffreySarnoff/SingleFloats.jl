@@ -201,3 +201,5 @@ end
 
 decompose(x::Single32) = decompose(Float64(x))
 
+Base.similar(array, element_type=T, dims=size(array)) where {T<:Single32} =
+         reinterpret(Single32,similar(reinterpret(Float64,array),Float64,dims))
