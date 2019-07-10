@@ -11,7 +11,7 @@ Single32(x::Int8)     = Single32(Float64(x))
 Single32(x::Int16)    = Single32(Float64(x))
 Single32(x::Int32)    = Single32(Float64(x))
 Single32(x::Int64)    = Single32(Float64(x))
-Single32(x::Int128)   = Single32(Float64(x))
+#  Single32(x::Int128)   = Single32(Float64(x))
 
 Base.Float64(x::Single32)  = reinterpret(Float64, x)
 Base.Float32(x::Single32)  = Float32(Float64(x))
