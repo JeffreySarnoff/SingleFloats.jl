@@ -2,7 +2,10 @@ function Base.:(*)(m2::Matrix{Single32}, m3::Matrix{Single32})
     m1 = view(Float64.(m2),:,:) * view(Float64.(m3),:,:)
     return Single32.(m1)
 end
-
+#= for small matrices
+Base.:(*)(x::Matrix{Single32}, y::Matrix{Single32}) =
+    return map(Single32, map(Float64,x) * map(Float64,y))
+=#
 function LinearAlgebra.mul!(m1::Matrix{Single32}, m2::Matrix{Single32}, m3::Matrix{Single32})
     m1 = view(Float64.(m2),:,:)*view(Float64.(m3),:,:)
     return Single32.(m1)
