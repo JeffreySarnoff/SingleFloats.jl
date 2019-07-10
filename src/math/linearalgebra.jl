@@ -55,7 +55,7 @@ end
 
 for Op in (:eigvals, :eigvecs, :svdvals, :svd)
     @eval $Op(x::Array{Single32,2}, y::Array{Single32,2}) =
-        reinterpret(Single32,($Op(reinterpret(Float64,x), reinterpret(Float64,y)))
+        reinterpret(Single32, $Op(reinterpret(Float64,x), reinterpret(Float64,y)))
 end
 
 for Op in (:sqrt, :exp, :log,
