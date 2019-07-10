@@ -20,7 +20,7 @@ Base.Float16(x::Single32)  = Float16(Float32(x))
 
 for st in (Int8, Int16, Int32, Int64)
     @eval begin
-        (::Type{Single32})(x::($st)) = Core.Intrinsics.sitofp(Single32, x)
+#        (::Type{Single32})(x::($st)) = Core.Intrinsics.sitofp(Single32, x)
         promote_rule(::Type{Single32}, ::Type{$st}) = Single32
     end
 end
