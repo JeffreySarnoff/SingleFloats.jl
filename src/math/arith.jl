@@ -80,12 +80,3 @@ Base.fma(x::T, y::Single32, z::Single32) where {T<:IEEEFloat} = Single32(fma(Flo
 Base.fma(x::Single32, y::T, z::T) where {T<:IEEEFloat} = Single32(fma(Float64(x), Float64(y), Float64(z)))
 Base.fma(x::T, y::Single32, z::T) where {T<:IEEEFloat} = Single32(fma(Float64(x), Float64(y), Float64(z)))
 Base.fma(x::T, y::T, z::Single32) where {T<:IEEEFloat} = Single32(fma(Float64(x), Float64(y), Float64(z)))
-
-
-for Op in (:sqrt, :exp, :log,
-           :sin, :cos, :tan, :csc, :sec, :cot, 
-           :asin, :acos, :atan, :acsc, :asec, :acot,            
-           :sinh, :cosh, :tanh, :csch, :sech, :coth, 
-           :asinh, :acosh, :atanh, :acsch, :asech, :acoth)
-    @eval $Op(x::Single32) = Single32($Op(Float64(x)))
-end
