@@ -14,9 +14,7 @@ Single32(x::Int64)    = Single32(Float64(x))
 Single32(x::Int128)   = Single32(Float64(x))
 
 Base.Float64(x::Single32)  = reinterpret(Float64, x)
-Base.Float32(x::Single32)  = Core.Intrinsics.fptrunc(Float32, x)Single32(x::BigInt) = Single32(Float64(x))
-Single32(x::BigInt) = Single32(Float64(x))
-Single32(x::BigInt) = Single32(Float64(x))
+Base.Float32(x::Single32)  = Float32(Float64(x))
 
 Base.Float16(x::Single32)  = Float16(Float32(x))
 
