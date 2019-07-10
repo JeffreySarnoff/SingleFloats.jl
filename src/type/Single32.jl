@@ -200,6 +200,3 @@ for Op in (:cmp, :(==), :(!=), :(>=), :(<=), :(>), :(<), :isless, :isequal)
 end
 
 decompose(x::Single32) = decompose(Float64(x))
-
-Base.similar(array, ::Type{Single32}, dims=size(array)) =
-         reinterpret(Single32,similar(reinterpret(Float64,array),Float64,dims))
