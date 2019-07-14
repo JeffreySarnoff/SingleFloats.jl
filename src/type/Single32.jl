@@ -61,6 +61,9 @@ floatmax(x::Single32) = floatmax(Single32)
 maxintfloat(::Type{Single32}) = maxintfloat(Float32)
 maxintfloat(::Type{Single32}, ::Type{I}) where {I<:Integer} = maxintfloat(Float32, I)
 
+signbit(x::Single32) = signbit(Float64(x))
+signbit(x::Single32) = signbit(Float64(x))
+
 zero(::Type{Single32}) = Single32(zero(Float64))
 one(::Type{Single32}) = Single32(one(Float64))
 iszero(x::Single32) = iszero(Float64(x))
