@@ -70,8 +70,10 @@ prevfloat(x::Single32, n::Int) = Single32(prevfloat(Float32(x), n))
 nextfloat(x::Single32, n::Int) = Single32(nextfloat(Float32(x), n))
 
 eps(::Type{Single32}) = eps(Float64)
+eps(x::Single32) = eps(Float64) * abs(Float64(x))         # <<<<<<<<< ???????????????
 exponent(x::Single32) = exponent(Float64(x))
 significand(x::Single32) = significand(Float64(x))
+precision(::Type{Single32}) = precision{Float64)
 
 
 trunc(x::Single32) = Core.Intrinsics.trunc_llvm(x)
