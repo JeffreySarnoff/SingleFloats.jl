@@ -49,14 +49,6 @@ widen(x::Single32) = Float64(x)
 hash(x::Single32) = hash(Float64(x))
 hash(x::Single32, h::UInt64) = hash(Float64(x), h)
 
-typemin(::Type{Single32})  = typemin(Float32)
-typemax(::Type{Single32})  = typemax(Float32)
-floatmin(::Type{Single32}) = floatmin(Float32)
-floatmax(::Type{Single32}) = floatmax(Float32)
-typemin(x::Single32)  = typemin(Single32)
-typemax(x::Single32)  = typemax(Single32)
-floatmin(x::Single32) = floatmin(Single32)
-floatmax(x::Single32) = floatmax(Single32)
 
 maxintfloat(::Type{Single32}) = maxintfloat(Float32)
 maxintfloat(::Type{Single32}, ::Type{I}) where {I<:Integer} = maxintfloat(Float32, I)
@@ -71,8 +63,18 @@ isone(x::Single32) = isone(Float64(x))
 prevfloat(x::Single32, n::Int) = Single32(prevfloat(Float32(x), n))
 nextfloat(x::Single32, n::Int) = Single32(nextfloat(Float32(x), n))
 
-eps(::Type{Single32}) = eps(Float64)
-eps(x::Single32) = eps(Float64) * abs(Float64(x))         # <<<<<<<<< ???????????????
+
+typemin(::Type{Single32})  = typemin(Float32)
+typemax(::Type{Single32})  = typemax(Float32)
+floatmin(::Type{Single32}) = floatmin(Float32)
+floatmax(::Type{Single32}) = floatmax(Float32)
+typemin(x::Single32)  = typemin(Single32)
+typemax(x::Single32)  = typemax(Single32)
+floatmin(x::Single32) = floatmin(Single32)
+floatmax(x::Single32) = floatmax(Single32)
+
+eps(::Type{Single32}) = eps(Float32)
+eps(x::Single32) = eps(Float32) * abs(Float64(x))         # <<<<<<<<< ???????????????
 exponent(x::Single32) = exponent(Float64(x))
 significand(x::Single32) = significand(Float64(x))
 precision(::Type{Single32}) = precision(Float64)
