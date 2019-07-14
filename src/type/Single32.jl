@@ -6,21 +6,15 @@ Single32(x::Float64)  = reinterpret(Single32, x)
 Single32(x::Float32)  = Core.Intrinsics.fpext(Single32, x)
 Single32(x::Float16)  = reinterpret(Single32, Float64(x))
 Single32(x::BigFloat) = Single32(Float64(x))
-Single32(x::BigInt)   = Single32(Float64(x))
-Single32(x::Int8)     = Single32(Float64(x))
-Single32(x::Int16)    = Single32(Float64(x))
-Single32(x::Int32)    = Single32(Float64(x))
-Single32(x::Int64)    = Single32(Float64(x))
-#  Single32(x::Int128)   = Single32(Float64(x))
+Single32(x::BigInt) = Single32(Float64(x))
 
 Base.Float64(x::Single32)  = reinterpret(Float64, x)
-Base.Float32(x::Single32)  = Float32(Float64(x))
-
+Base.Float32(x::Single32)  = Core.Intrinsics.fptrunc(Float32, x)
 Base.Float16(x::Single32)  = Float16(Float32(x))
 
 for st in (Int8, Int16, Int32, Int64)
     @eval begin
-#        (::Type{Single32})(x::($st)) = Core.Intrinsics.sitofp(Single32, x)
+        (::Type{Single32})(x::($st)) = Core.Intrinsics.sitofp(Single32, x)
         promote_rule(::Type{Single32}, ::Type{$st}) = Single32
     end
 end
@@ -71,8 +65,6 @@ zero(::Type{Single32}) = Single32(zero(Float64))
 one(::Type{Single32}) = Single32(one(Float64))
 iszero(x::Single32) = iszero(Float64(x))
 isone(x::Single32) = isone(Float64(x))
-
-isinteger(x::Single32) = isinteger(Float64(x))
 
 prevfloat(x::Single32, n::Int) = Single32(prevfloat(Float32(x), n))
 nextfloat(x::Single32, n::Int) = Single32(nextfloat(Float32(x), n))
@@ -208,3 +200,4 @@ for Op in (:cmp, :(==), :(!=), :(>=), :(<=), :(>), :(<), :isless, :isequal)
 end
 
 decompose(x::Single32) = decompose(Float64(x))
+
