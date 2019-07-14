@@ -43,34 +43,19 @@ qr(x::Array{Single32,2}) = qr(reinterpret(Float64,x))
 for Op in (:lu, :lu!, :qr, :qr!, :schur, :schur!)
     @eval $Op(x::Array{Single32,2}) = Single32.($Op(Float64.(x)))
 end
-
 for Op in (:cholesky, :cholesky!, :hessenberg, :hessenberg!, :factorize)
     @eval $Op(x::Array{Single32,2}) = Single32.($Op(Float64.(x)))
 end
 =#
 
-function LinearAlgebra.eigvals(mat::Array{Single32,2})
-    mat64 = map(Float64, mat)
-    result = eigvals(mat64)
-    return map(Complex{Single32}, result)
-end
-
-function LinearAlgebra.eigvecs(mat::Array{Single32,2})
-    mat64 = map(Float64, mat)
-    result = eigvecs(mat64)
-    return map(Complex{Single32}, result)
-end
-
-for Op in (:svdvals, :svdvals!)
+for Op in (:eigvals, :eigvals!, :svdvals, :svdvals!, :svd)
     @eval $Op(x::Array{Single32,2}) = reinterpret(Single32, $Op(reinterpret(Float64,x)))
 end
 
-#=
-for Op in (:svdvals, :svd)
+for Op in (:eigvals, :eigvecs, :svdvals, :svd)
     @eval $Op(x::Array{Single32,2}, y::Array{Single32,2}) =
         reinterpret(Single32, $Op(reinterpret(Float64,x), reinterpret(Float64,y)))
 end
-=#
 
 for Op in (:sqrt, :exp, :log,
            :sin, :cos, :tan, :csc, :sec, :cot, 
