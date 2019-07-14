@@ -187,23 +187,17 @@ isless( x::Single32, y::Single32) = isless(Float32(x), Float32(y))
 isless( x::Single32, y::Float64)  = isless(Float64(x), y)
 isless( x::Float64, y::Single32)  = isless(x, Float64(y))
 
-==(x::Single32, y::Single32) = Float32(x) === Float32(y)
 ==(x::Single32, y::Float32)  = Float32(x) === y
 ==(x::Float32, y::Single32)  = x === Float32(y)
-!=(x::Single32, y::Single32) = Float32(x) !== Float32(y)
 !=(x::Single32, y::Float32)  = Float32(x) !== y
 !=(x::Float32, y::Single32)  = x !== Float32(y)
-<( x::Single32, y::Single32) = Float32(x) < Float32(y)
 <( x::Single32, y::Float32)  = Float32(x) < y
 <( x::Float32, y::Single32)  = x < Float32(y)
-<=(x::Single32, y::Single32) = Float32(x) <= Float32(y)
 <=(x::Single32, y::Float32)  = Float32(x) <= y
 <=(x::Float32, y::Single32)  = x <= Float32(y)
 
-isequal(x::Single32, y::Single32) = isequal(Float32(x), Float32(y))
 isequal(x::Single32, y::Float32)  = isequal(Float32(x), y)
 isequal(x::Float32, y::Single32)  = isequal(x, Float32(y))
-isless( x::Single32, y::Single32) = isless(Float32(x), Float32(y))
 isless( x::Single32, y::Float32)  = isless(Float32(x), y)
 isless( x::Float32, y::Single32)  = isless(x, Float32(y))
 #=
