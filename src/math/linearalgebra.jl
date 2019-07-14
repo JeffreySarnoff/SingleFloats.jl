@@ -49,14 +49,28 @@ for Op in (:cholesky, :cholesky!, :hessenberg, :hessenberg!, :factorize)
 end
 =#
 
-for Op in (:eigvals, :eigvals!, :svdvals, :svdvals!, :svd)
+function LinearAlgebra.eigvals(mat::Array{Single32,2})
+    mat64 = map(Float64, mat)
+    result = eigvals(mat64)
+    return map(Complex{Single32}, result)
+end
+
+function LinearAlgebra.eigvecs(mat::Array{Single32,2})
+    mat64 = map(Float64, mat)
+    result = eigvecs(mat64)
+    return map(Complex{Single32}, result)
+end
+
+for Op in (:svdvals, :svdvals!)
     @eval $Op(x::Array{Single32,2}) = reinterpret(Single32, $Op(reinterpret(Float64,x)))
 end
 
-for Op in (:eigvals, :eigvecs, :svdvals, :svd)
+#=
+for Op in (:svdvals, :svd)
     @eval $Op(x::Array{Single32,2}, y::Array{Single32,2}) =
         reinterpret(Single32, $Op(reinterpret(Float64,x), reinterpret(Float64,y)))
 end
+=#
 
 for Op in (:sqrt, :exp, :log,
            :sin, :cos, :tan, :csc, :sec, :cot, 
