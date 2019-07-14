@@ -24,7 +24,7 @@ import LinearAlgebra: rank, cond, norm, opnorm, det, tr, inv, pinv,
                       schur, schur!, hessenberg, hessenberg!,
                       cholesky, cholesky!, factorize
 
-using Random
+# using Random
 
 include("type/Single32.jl")
 include("math/Single32.jl")
