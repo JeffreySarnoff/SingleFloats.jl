@@ -5,8 +5,8 @@ export Single32
 using Base: IEEEFloat
 import Base: promote_rule, convert, hash, show, string, repr
 import Base: cmp, ==, !=, >=, >, <=, <, isless, isequal
-import Base: +, -, *, /, \, %, √, ÷
-import Base: prevfloat, nextfloat, eps, exponent, significand, zero, one, iszero, isone, decompose
+import Base: +, -, *, /, \, %, √, ÷, inv
+import Base: prevfloat, nextfloat, eps, exponent, significand, zero, one, iszero, isone, isinteger, decompose
 import Base: typemin, typemax, floatmin, floatmax, maxintfloat, widen
 import Base: ^, sqrt, cbrt, ∛, div, rem, fld, mod, cld, hypot, min, max, minmax, rad2deg, deg2rad, mod2pi, rem2pi
 import Base: abs, abs2, sign, copysign, flipsign, floor, ceil, trunc, round, divrem, fldmod, clamp
@@ -26,7 +26,8 @@ import LinearAlgebra: rank, cond, norm, opnorm, det, tr, inv, pinv,
 using Random
 
 include("type/Single32.jl")
-include("math/Single32.jl")
+include("math/arith.jl")
+include("math/elementary.jl")
 include("math/linearalgebra.jl")
 
 end # SingleFloats
