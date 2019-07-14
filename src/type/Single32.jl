@@ -79,6 +79,7 @@ exponent(x::Single32) = exponent(Float64(x))
 significand(x::Single32) = significand(Float64(x))
 precision(::Type{Single32}) = precision(Float64)
 
+#=
 trunc(x::Single32) = Core.Intrinsics.trunc_llvm(x)
 floor(x::Single32) = Core.Intrinsics.floor_llvm(x)
 ceil(x::Single32)  = Core.Intrinsics.ceil_llvm(x)
@@ -97,6 +98,25 @@ round(::Type{I}, x::Single32, r::RoundingMode{:Down})    where {I<:Integer} = (I
 round(::Type{I}, x::Single32, r::RoundingMode{:Up})      where {I<:Integer} = (I)(Core.Intrinsics.ceil_llvm(x))
 round(::Type{I}, x::Single32, r::RoundingMode{:Nearest}) where {I<:Integer} = (I)(Core.Intrinsics.rint_llvm(x))
 round(::Type{I}, x::Single32) where {I<:Integer} = (I)(Core.Intrinsics.rint_llvm(x))
+=#
+trunc(x::Single32) = trunc(Float64(x))
+floor(x::Single32) = floor(Float64(x))
+ceil(x::Single32)  = ceil(Float64(x))
+
+round(x::Single32, r::RoundingMode{:ToZero})  = trunc(Float64(x))
+round(x::Single32, r::RoundingMode{:Down})    = floor(Float64(x))
+round(x::Single32, r::RoundingMode{:Up})      = ceil(Float64(x))
+round(x::Single32, r::RoundingMode{:Nearest}) = round(Float64(x))
+
+trunc(::Type{I}, x::Single32) where {I<:Integer} = trunc(I, Float64(x))
+floor(::Type{I}, x::Single32) where {I<:Integer} = floor(I, Float64(x))
+ceil(::Type{I}, x::Single32)  where {I<:Integer} = ceil(I, Float64(x))
+
+round(::Type{I}, x::Single32, r::RoundingMode{:ToZero})  where {I<:Integer} = trunc(I, Float64(x))
+round(::Type{I}, x::Single32, r::RoundingMode{:Down})    where {I<:Integer} = floor(I, Float64(x))
+round(::Type{I}, x::Single32, r::RoundingMode{:Up})      where {I<:Integer} = ceil(I, Float64(x))
+round(::Type{I}, x::Single32, r::RoundingMode{:Nearest}) where {I<:Integer} = round(I, Float64(x))
+round(::Type{I}, x::Single32) where {I<:Integer} = round(I, Float64(x))
 
     
 Base.BigFloat(x::Single32) = BigFloat(Float64(x))
