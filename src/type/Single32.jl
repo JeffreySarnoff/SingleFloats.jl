@@ -62,7 +62,6 @@ maxintfloat(::Type{Single32}) = maxintfloat(Float32)
 maxintfloat(::Type{Single32}, ::Type{I}) where {I<:Integer} = maxintfloat(Float32, I)
 
 signbit(x::Single32) = signbit(Float64(x))
-signbit(x::Single32) = signbit(Float64(x))
 
 zero(::Type{Single32}) = Single32(zero(Float64))
 one(::Type{Single32}) = Single32(one(Float64))
@@ -76,8 +75,7 @@ eps(::Type{Single32}) = eps(Float64)
 eps(x::Single32) = eps(Float64) * abs(Float64(x))         # <<<<<<<<< ???????????????
 exponent(x::Single32) = exponent(Float64(x))
 significand(x::Single32) = significand(Float64(x))
-precision(::Type{Single32}) = precision{Float64)
-
+precision(::Type{Single32}) = precision(Float64)
 
 trunc(x::Single32) = Core.Intrinsics.trunc_llvm(x)
 floor(x::Single32) = Core.Intrinsics.floor_llvm(x)
