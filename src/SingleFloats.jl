@@ -15,33 +15,6 @@ import Base.Math: exp, exp2, exp10, expm1, log, log2, log10, log1p,
     sin, cos, tan, csc, sec, cot, asin, acos, atan, acsc, asec, acot,
     sinh, cosh, tanh, csch, sech, coth, asinh, acosh, atanh, acsch, asech, acoth
 
-#=
-abs2
-clamp
-cmp
-decompose
-deg2rad
-eltype
-eps
-hypot
-iseven
-isfinite
-isnan
-isodd
-issubnormal
-maximum
-minimum
-nextfloat
-parse
-precision
-prevfloat
-promote_type
-rad2deg
-repr
-signbit
-tryparse
-=#
-
 using LinearAlgebra
 import LinearAlgebra: rank, cond, norm, opnorm, det, tr, inv, pinv, 
                       transpose, adjoint, eigvals, eigvals!, svdvals, svdvals!, svd,
