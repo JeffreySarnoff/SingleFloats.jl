@@ -187,5 +187,4 @@ for Op in (:cmp, :(==), :(!=), :(>=), :(<=), :(>), :(<), :isless, :isequal)
     end
 end
 
-decompose(x::Single32) = decompose(Float64(x))
-
+decompose(x::Single32) = decompose(Float32(x))
