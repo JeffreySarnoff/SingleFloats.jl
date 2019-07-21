@@ -59,10 +59,10 @@ zero(::Type{Single32}) = Single32(zero(Float64))
 one(::Type{Single32}) = Single32(one(Float64))
 iszero(x::Single32) = iszero(Float64(x))
 isone(x::Single32) = isone(Float64(x))
+isinteger(x::Single32) = isinteger(Float32(x))
 
-prevfloat(x::Single32, n::Int) = Single32(prevfloat(Float32(x), n))
-nextfloat(x::Single32, n::Int) = Single32(nextfloat(Float32(x), n))
-
+prevfloat(x::Single32, n::Int=1) = Single32(prevfloat(Float32(x), n))
+nextfloat(x::Single32, n::Int=1) = Single32(nextfloat(Float32(x), n))
 
 typemin(::Type{Single32})  = typemin(Float32)
 typemax(::Type{Single32})  = typemax(Float32)
@@ -74,31 +74,11 @@ floatmin(x::Single32) = floatmin(Single32)
 floatmax(x::Single32) = floatmax(Single32)
 
 eps(::Type{Single32}) = eps(Float32)
-eps(x::Single32) = eps(Float32) * abs(Float64(x))         # <<<<<<<<< ???????????????
+eps(x::Single32) = Single32(eps(Float32(x)))
 exponent(x::Single32) = exponent(Float64(x))
 significand(x::Single32) = significand(Float64(x))
 precision(::Type{Single32}) = precision(Float64)
 
-#=
-trunc(x::Single32) = Core.Intrinsics.trunc_llvm(x)
-floor(x::Single32) = Core.Intrinsics.floor_llvm(x)
-ceil(x::Single32)  = Core.Intrinsics.ceil_llvm(x)
-
-round(x::Single32, r::RoundingMode{:ToZero})  = Core.Intrinsics.trunc_llvm(x)
-round(x::Single32, r::RoundingMode{:Down})    = Core.Intrinsics.floor_llvm(x)
-round(x::Single32, r::RoundingMode{:Up})      = Core.Intrinsics.ceil_llvm(x)
-round(x::Single32, r::RoundingMode{:Nearest}) = Core.Intrinsics.rint_llvm(x)
-
-trunc(::Type{I}, x::Single32) where {I<:Integer} = (I)(Core.Intrinsics.trunc_llvm(x))
-floor(::Type{I}, x::Single32) where {I<:Integer} = (I)(Core.Intrinsics.floor_llvm(x))
-ceil(::Type{I}, x::Single32)  where {I<:Integer} = (I)(Core.Intrinsics.ceil_llvm(x))
-
-round(::Type{I}, x::Single32, r::RoundingMode{:ToZero})  where {I<:Integer} = (I)(Core.Intrinsics.trunc_llvm(x))
-round(::Type{I}, x::Single32, r::RoundingMode{:Down})    where {I<:Integer} = (I)(Core.Intrinsics.floor_llvm(x))
-round(::Type{I}, x::Single32, r::RoundingMode{:Up})      where {I<:Integer} = (I)(Core.Intrinsics.ceil_llvm(x))
-round(::Type{I}, x::Single32, r::RoundingMode{:Nearest}) where {I<:Integer} = (I)(Core.Intrinsics.rint_llvm(x))
-round(::Type{I}, x::Single32) where {I<:Integer} = (I)(Core.Intrinsics.rint_llvm(x))
-=#
 trunc(x::Single32) = trunc(Float64(x))
 floor(x::Single32) = floor(Float64(x))
 ceil(x::Single32)  = ceil(Float64(x))
@@ -146,27 +126,6 @@ convert(::Type{Single32}, x::Rational) = Single32(x)
 
 # comparisons
 
-#=
-==(x::Single32, y::Single32) = Core.Intrinsics.eq_float(x, y)
-==(x::Single32, y::Float64)  = Core.Intrinsics.eq_float(Float64(x), y)
-==(x::Float64, y::Single32)  = Core.Intrinsics.eq_float(x, Float64(y))
-!=(x::Single32, y::Single32) = Core.Intrinsics.ne_float(x, y)
-!=(x::Single32, y::Float64)  = Core.Intrinsics.ne_float(Float64(x), y)
-!=(x::Float64, y::Single32)  = Core.Intrinsics.ne_float(x, Float64(y))
-<( x::Single32, y::Single32) = Core.Intrinsics.lt_float(x, y)
-<( x::Single32, y::Float64)  = Core.Intrinsics.lt_float(Float64(x), y)
-<( x::Float64, y::Single32)  = Core.Intrinsics.lt_float(x, Float64(y))
-<=(x::Single32, y::Single32) = Core.Intrinsics.le_float(x, y)
-<=(x::Single32, y::Float64)  = Core.Intrinsics.le_float(Float64(x), y)
-<=(x::Float64, y::Single32)  = Core.Intrinsics.le_float(x, Float64(y))
-
-isequal(x::Single32, y::Single32) = Core.Intrinsics.fpiseq(x, y)
-isequal(x::Single32, y::Float64)  = Core.Intrinsics.fpiseq(Float64(x), y)
-isequal(x::Float64, y::Single32)  = Core.Intrinsics.fpiseq(x, Float64(y))
-isless( x::Single32, y::Single32) = Core.Intrinsics.fpislt(x, y)
-isless( x::Single32, y::Float64)  = Core.Intrinsics.fpislt(Float64(x), y)
-isless( x::Float64, y::Single32)  = Core.Intrinsics.fpislt(x, Float64(y))
-=#
 ==(x::Single32, y::Single32) = Float32(x) === Float32(y)
 ==(x::Single32, y::Float64)  = Float64(x) === y
 ==(x::Float64, y::Single32)  = x === Float64(y)
@@ -200,36 +159,7 @@ isequal(x::Single32, y::Float32)  = isequal(Float32(x), y)
 isequal(x::Float32, y::Single32)  = isequal(x, Float32(y))
 isless( x::Single32, y::Float32)  = isless(Float32(x), y)
 isless( x::Float32, y::Single32)  = isless(x, Float32(y))
-#=
-==(x::Single32, y::Float32) = Core.Intrinsics.eq_float(Float32(x), y)
-==(x::Float32, y::Single32) = Core.Intrinsics.eq_float(x, Float32(x))
-!=(x::Single32, y::Float32) = Core.Intrinsics.ne_float(Float32(x), y)
-!=(x::Float32, y::Single32) = Core.Intrinsics.ne_float(x, Float32(y))
-<( x::Single32, y::Float32) = Core.Intrinsics.lt_float(Float32(x), y)
-<( x::Float32, y::Single32) = Core.Intrinsics.lt_float(x, Float32(y))
-<=(x::Single32, y::Float32) = Core.Intrinsics.le_float(Float32(x), y)
-<=(x::Float32, y::Single32) = Core.Intrinsics.le_float(x, Float32(y))
 
-isequal(x::Single32, y::Float32) = Core.Intrinsics.fpiseq(Float32(x), y)
-isequal(x::Float32, y::Single32) = Core.Intrinsics.fpiseq(x, Float32(y))
-isless( x::Single32, y::Float32) = Core.Intrinsics.fpislt(Float32(x), y)
-isless( x::Float32, y::Single32) = Core.Intrinsics.fpislt(x, Float32(y))
-
-==(x::Single32, y::Float32) = Core.Intrinsics.eq_float(Float64(x), Float64(y))
-==(x::Float32, y::Single32) = Core.Intrinsics.eq_float(Float64(x), Float64(x))
-!=(x::Single32, y::Float32) = Core.Intrinsics.ne_float(Float64(x), Float64(y))
-!=(x::Float32, y::Single32) = Core.Intrinsics.ne_float(Float64(x), Float64(y))
-<( x::Single32, y::Float32) = Core.Intrinsics.lt_float(Float64(x), Float64(y))
-<( x::Float32, y::Single32) = Core.Intrinsics.lt_float(Float64(x), Float64(y))
-<=(x::Single32, y::Float32) = Core.Intrinsics.le_float(Float64(x), Float64(y))
-<=(x::Float32, y::Single32) = Core.Intrinsics.le_float(Float64(x), Float64(y))
-
-isequal(x::Single32, y::Float32) = Core.Intrinsics.fpiseq(Float64(x), Float64(y))
-isequal(x::Float32, y::Single32) = Core.Intrinsics.fpiseq(Float64(x), Float64(y))
-isless( x::Single32, y::Float32) = Core.Intrinsics.fpislt(Float64(x), Float64(y))
-isless( x::Float32, y::Single32) = Core.Intrinsics.fpislt(Float64(x), Float64(y))
-=#
-    
 for Op in (:cmp, :(==), :(!=), :(>=), :(<=), :(>), :(<), :isless, :isequal)
     @eval begin
         $Op(x::Single32, y::Float16) = $Op(Float64(x), Float64(y))
@@ -258,5 +188,4 @@ for Op in (:cmp, :(==), :(!=), :(>=), :(<=), :(>), :(<), :isless, :isequal)
     end
 end
 
-decompose(x::Single32) = decompose(Float64(x))
-
+decompose(x::Single32) = decompose(Float32(x))

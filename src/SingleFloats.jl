@@ -26,9 +26,8 @@ import LinearAlgebra: rank, cond, norm, opnorm, det, tr, inv, pinv,
 using Random
 
 include("type/Single32.jl")
-include("math/Single32.jl")
-#include("math/arith.jl")
-#include("math/elementary.jl")
+include("math/arith.jl")
+include("math/elementary.jl")
 include("math/linearalgebra.jl")
 
 end # SingleFloats
