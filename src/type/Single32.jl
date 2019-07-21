@@ -59,6 +59,7 @@ zero(::Type{Single32}) = Single32(zero(Float64))
 one(::Type{Single32}) = Single32(one(Float64))
 iszero(x::Single32) = iszero(Float64(x))
 isone(x::Single32) = isone(Float64(x))
+isinteger(x::Single32) = isinteger(Float32(x))
 
 prevfloat(x::Single32, n::Int=1) = Single32(prevfloat(Float32(x), n))
 nextfloat(x::Single32, n::Int=1) = Single32(nextfloat(Float32(x), n))
