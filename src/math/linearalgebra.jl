@@ -1,6 +1,7 @@
 import LinearAlgebra: *, exp!, iszero, isone,
     isdiag, issymmetric, ishermitian,
     isposdef, isposdef!, istril, istriu,
+    dot, norm, normalize,
     rank, cond, opnorm, norm, det, tr,
     transpose, adjoint, inv, pinv,
     lu, lu!, qr, qr!, schur, schur!,
@@ -12,10 +13,19 @@ import LinearAlgebra: *, exp!, iszero, isone,
     sinh, cosh, tanh, csch, sech, coth,
     asinh, acosh, atanh, acsch, asech, acoth
 
-LinearAlgebra.:(*)(a::Matrix{Single32}, b::Matrix{Single32}) =
+
+norm(a::Vector{Single32}) = reinterpret(Single32, norm(reinterpret(Float64, a)))
+
+normalize(a::Vector{Single32}) = reinterpret(Single32, normalize(reinterpret(Float64, a)))
+
+dot(a::Vector{Single32}, b::Vector{Single32}) =
+    reinterpret(Single32, dot(reinterpret(Float64, a), reinterpret(Float64, b)))
+
+
+(*)(a::Matrix{Single32}, b::Matrix{Single32}) =
     reinterpret(Single32, reinterpret(Float64,a) * reinterpret(Float64,b))
 
-LinearAlgebra.exp!(x::Array{Complex{Single32},2}) = Complex{Single32}.(LinearAlgebra.exp!(Complex{Float64}.(x)))
+exp!(x::Array{Complex{Single32},2}) = Complex{Single32}.(LinearAlgebra.exp!(Complex{Float64}.(x)))
 
 for Op in (:iszero, :isone, :isdiag, :issymmetric, :ishermitian,
            :isposdef, :isposdef!, :istril, :istriu)
