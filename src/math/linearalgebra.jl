@@ -1,26 +1,57 @@
-*(a::Matrix{Single32}, b::Matrix{Single32}) = view(a,:,:) * view(b,:,:)
+import LinearAlgebra: *, exp!, iszero, isone,
+    isdiag, issymmetric, ishermitian,
+    isposdef, isposdef!, istril, istriu,
+    rank, cond, opnorm, norm, det, tr,
+    transpose, adjoint, inv, pinv,
+    lu, lu!, qr, qr!, schur, schur!,
+    cholesky, cholesky!, hessenberg, hessenberg!, factorize,
+    eigvals, eigvals!, svdvals, svdvals!, svd,
+    sqrt, exp, log,
+    sin, cos, tan, csc, sec, cot,
+    asin, acos, atan, acsc, asec, acot,
+    sinh, cosh, tanh, csch, sech, coth,
+    asinh, acosh, atanh, acsch, asech, acoth
+
+LinearAlgebra.:(*)(a::Matrix{Single32}, b::Matrix{Single32}) =
+    reinterpret(Single32, reinterpret(Float64,a) * reinterpret(Float64,b))
 
 LinearAlgebra.exp!(x::Array{Complex{Single32},2}) = Complex{Single32}.(LinearAlgebra.exp!(Complex{Float64}.(x)))
 
 for Op in (:iszero, :isone, :isdiag, :issymmetric, :ishermitian,
            :isposdef, :isposdef!, :istril, :istriu)
-    @eval $Op(x::Array{Single32,2}) = $Op(view(x,:,:))
+    @eval $Op(x::Matrix{Single32}) = $Op(reinterpret(Float64,x))
 end
 
 for Op in (:rank, :cond, :opnorm)
-    @eval $Op(x::Array{Single32,2}) = Single32($Op(Float64.(x)))
+    @eval $Op(x::Array{Single32,2}) =
+        reinterpret(Single32, $Op(reinterpret(Float64,x)))
 end
 
 for Op in (:norm, :det, :tr)
-    @eval $Op(x::Array{Single32,2}) = Single32($Op(view(x,:,:)))
-end
- 
-for Op in (:transpose, :adjoint, :inv, :pinv)
-    @eval $Op(x::Array{Single32,2}) = Single32.($Op(Float64.(x)))
+    @eval $Op(x::Matrix{Single32}) =
+        reinterpret(Single32, $Op(reinterpret(Float64,x)))
 end
 
-lu(x::Array{Single32,2}) = lu(view(x,:,:))
-qr(x::Array{Single32,2}) = qr(view(x,:,:))
+for Op in (:transpose, :adjoint, :inv, :pinv)
+    @eval $Op(x::Matrix{Single32}) =
+        reinterpret(Single32, ($Op(reinterpret(Float64,x))))
+end
+
+function LinearAlgebra.lu(x::Matrix{Single32})
+    result = lu(reinterpret(Float64,x))
+    return LinearAlgebra.LU{Single32,Array{Single32,2}}(result)
+end
+
+#=
+function LinearAlgebra.qr(x::Matrix{Single32})
+    result = qr(reinterpret(Float64,x))
+    if typeof(result) <: LinearAlgebra.QRCompactWY
+        LinearAlgebra.QRCompactWY{Single32,Array{Single32,2}}(result)
+    else
+        LinearAlgebra.QR{Single32,Array{Single32,2}}(result)
+    end
+end
+=#
 
 #=
 for Op in (:lu, :lu!, :qr, :qr!, :schur, :schur!)
@@ -32,18 +63,18 @@ for Op in (:cholesky, :cholesky!, :hessenberg, :hessenberg!, :factorize)
 end
 =#
 
-for Op in (:eigvals, :eigvals!, :svdvals, :svdvals!, :svd)
-    @eval $Op(x::Array{Single32,2}) = Single32.($Op(Float64.(x)))
+for Op in (:svdvals, :svdvals!)
+    @eval $Op(x::Array{Single32,2}) = reinterpret(Single32,($Op(reinterpret(Float64,x))))
 end
 
-for Op in (:eigvals, :eigvecs, :svdvals, :svd)
-    @eval $Op(x::Array{Single32,2}, y::Array{Single32,2}) = Single32.($Op(Float64.(x), Float64.(y)))
+for Op in (:eigvals, :eigvals!, :eigvecs)
+    @eval $Op(x::Array{Single32,2}) = (Complex{Single32}).($Op(reinterpret(Float64,x)))
 end
 
 for Op in (:sqrt, :exp, :log,
-           :sin, :cos, :tan, :csc, :sec, :cot, 
-           :asin, :acos, :atan, :acsc, :asec, :acot,            
-           :sinh, :cosh, :tanh, :csch, :sech, :coth, 
+           :sin, :cos, :tan, :csc, :sec, :cot,
+           :asin, :acos, :atan, :acsc, :asec, :acot,
+           :sinh, :cosh, :tanh, :csch, :sech, :coth,
            :asinh, :acosh, :atanh, :acsch, :asech, :acoth)
     @eval $Op(x::Array{Single32,2}) = Single32.($Op(Float64.(x)))
 end
