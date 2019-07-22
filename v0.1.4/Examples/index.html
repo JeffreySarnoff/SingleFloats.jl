@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Examples · SingleFloats.jl</title><link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css" rel="stylesheet" type="text/css"/><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL=".."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.min.js" data-main="../assets/documenter.js"></script><script src="../siteinfo.js"></script><script src="../../versions.js"></script><link href="../assets/documenter.css" rel="stylesheet" type="text/css"/></head><body><nav class="toc"><h1>SingleFloats.jl</h1><select id="version-selector" onChange="window.location.href=this.value" style="visibility: hidden"></select><form class="search" id="search-form" action="../search/"><input id="search-query" name="q" type="text" placeholder="Search docs"/></form><ul><li><a class="toctext" href="../">Overview</a></li><li class="current"><a class="toctext" href>Examples</a><ul class="internal"></ul></li></ul></nav><article id="docs"><header><nav><ul><li><a href>Examples</a></li></ul><a class="edit-page" href="https://github.com/JeffreySarnoff/SingleFloats.jl/blob/master/docs/src/Examples.md"><span class="fa"></span> Edit on GitHub</a></nav><hr/><div id="topbar"><span>Examples</span><a class="fa fa-bars" href="#"></a></div></header><h1><a class="nav-anchor" id="Examples-1" href="#Examples-1">Examples</a></h1><pre><code class="language-none">using SingleFloats
+
+fwdxs(::Type{T}) where T  = T.(collect(1.0:20.0))
+fwdys(::Type{T}) where T  = cot.(fwdxs(T))
+fwdsum(::Type{T}) where T = sum(fwdys(T))
+
+revxs(::Type{T}) where T  = reverse(fwdxs(T))
+revys(::Type{T}) where T  = cot.(revxs(T))
+revsum(::Type{T}) where T = sum(revys(T))
+
+function muddybits(::Type{T}) where T
+   fwd = fwdsum(T)
+   rev = revsum(T)
+   epsavg = eps((fwd + rev)/2)
+   muddy = round(Int32, abs(fwd - rev) / epsavg)
+   lsbits = 31 - leading_zeros(muddy)
+   return max(0, lsbits)
+end
+
+
+(Single32 = muddybits(Single32),
+ Float32  = muddybits(Float32),
+ Float64  = muddybits(Float64))
+
+(Single32 = 0, Float32 = 6, Float64 = 7)</code></pre><pre><code class="language-julia">using SingleFloats, LinearAlgebra, Random
+Random.seed!(7865);
+
+mat_f32 = rand(Float32, 7, 7);
+mat_s32 = Single32.(mat_f32);
+mat_big  = BigFloat.(mat_f32);
+
+detinv_big = Float32(det(inv(mat_big)));
+detinv_f32 = det(inv(mat_f32));
+detinv_s32 = det(inv(mat_s32));
+
+julia&gt; (detinv_big - detinv_f32), (detinv_big - Float32.(detinv_s32))
+(1.5258789f-5, 0.0f0)</code></pre><footer><hr/><a class="previous" href="../"><span class="direction">Previous</span><span class="title">Overview</span></a></footer></article></body></html>
