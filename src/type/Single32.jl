@@ -6,11 +6,11 @@ Single32(x::Float64)  = reinterpret(Single32, x)
 Single32(x::Float32)  = Core.Intrinsics.fpext(Single32, x)
 Single32(x::Float16)  = reinterpret(Single32, Float64(x))
 Single32(x::BigFloat) = Single32(Float64(x))
-Single32(x::BigInt) = Single32(Float64(x))
+Single32(x::BigInt)   = Single32(Float64(x))
 
-Base.Float64(x::Single32)  = reinterpret(Float64, x)
-Base.Float32(x::Single32)  = Core.Intrinsics.fptrunc(Float32, x)
-Base.Float16(x::Single32)  = Float16(Float32(x))
+Base.Float64(x::Single32) = reinterpret(Float64, x)
+Base.Float32(x::Single32) = Core.Intrinsics.fptrunc(Float32, x)
+Base.Float16(x::Single32) = Float16(Float32(x))
 
 for st in (Int8, Int16, Int32, Int64)
     @eval begin
@@ -61,8 +61,9 @@ iszero(x::Single32) = iszero(Float64(x))
 isone(x::Single32) = isone(Float64(x))
 isinteger(x::Single32) = isinteger(Float32(x))
 
-prevfloat(x::Single32, n::Int=1) = Single32(prevfloat(Float32(x), n))
-nextfloat(x::Single32, n::Int=1) = Single32(nextfloat(Float32(x), n))
+prevfloat(x::Single32, n::Int) = Single32(prevfloat(Float32(x), n))
+nextfloat(x::Single32, n::Int) = Single32(nextfloat(Float32(x), n))
+
 
 typemin(::Type{Single32})  = typemin(Float32)
 typemax(::Type{Single32})  = typemax(Float32)
@@ -74,7 +75,7 @@ floatmin(x::Single32) = floatmin(Single32)
 floatmax(x::Single32) = floatmax(Single32)
 
 eps(::Type{Single32}) = eps(Float32)
-eps(x::Single32) = Single32(eps(Float32(x)))
+eps(x::Single32) = eps(Float32(x))
 exponent(x::Single32) = exponent(Float64(x))
 significand(x::Single32) = significand(Float64(x))
 precision(::Type{Single32}) = precision(Float64)
@@ -98,7 +99,7 @@ round(::Type{I}, x::Single32, r::RoundingMode{:Up})      where {I<:Integer} = ce
 round(::Type{I}, x::Single32, r::RoundingMode{:Nearest}) where {I<:Integer} = round(I, Float64(x))
 round(::Type{I}, x::Single32) where {I<:Integer} = round(I, Float64(x))
 
-    
+
 Base.BigFloat(x::Single32) = BigFloat(Float64(x))
 Base.Int128(x::Single32) = Int128(Float64(x))
 Base.Int64(x::Single32) = Int64(Float64(x))
@@ -106,15 +107,15 @@ Base.Int32(x::Single32) = Int32(Float64(x))
 Base.Int16(x::Single32) = Int16(Float64(x))
 
 promote_rule(::Type{Single32}, ::Type{Float32}) = Single32
-promote_rule(::Type{Single32}, ::Type{Float64}) = Single32 
+promote_rule(::Type{Single32}, ::Type{Float64}) = Single32
 
- 
+
 for T in (BigFloat, Float64, Float32, Float16,
           Int128, Int64, Int32, Int16, Int8,
           UInt128, UInt64, UInt32, UInt16, UInt8)
   @eval begin
     convert(::Type{Single32}, x::$T) = Single32(x)
-    convert(::Type{$T}, x::Single32) = ($T)(x)    
+    convert(::Type{$T}, x::Single32) = ($T)(x)
   end
 end
 
@@ -124,7 +125,7 @@ Rational{T}(x::Single32; tol=eps(x)) where {T} = Rational{T}(rationalize(Float64
 promote_rule(::Type{Single32}, ::Type{Rational}) = Single32
 convert(::Type{Single32}, x::Rational) = Single32(x)
 
-# comparisons
+# comparison
 
 ==(x::Single32, y::Single32) = Float32(x) === Float32(y)
 ==(x::Single32, y::Float64)  = Float64(x) === y
@@ -164,7 +165,7 @@ for Op in (:cmp, :(==), :(!=), :(>=), :(<=), :(>), :(<), :isless, :isequal)
     @eval begin
         $Op(x::Single32, y::Float16) = $Op(Float64(x), Float64(y))
         $Op(x::Float16, y::Single32) = $Op(Float64(x), Float64(y))
-        
+
         $Op(x::Single32, y::BigFloat) = $Op(Float64(x), y)
         $Op(x::BigFloat, y::Single32) = $Op(x, Float64(y))
 
