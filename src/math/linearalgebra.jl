@@ -77,7 +77,8 @@ for Op in (:svdvals, :svdvals!)
     @eval $Op(x::Array{Single32,2}) = reinterpret(Single32,($Op(reinterpret(Float64,x))))
 end
 
-for Op in (:eigvals, :eigvals!, :eigvecs)
+
+for Op in (:eigvals, :eigvals!)
     @eval $Op(x::Array{Single32,2}) = (Complex{Single32}).($Op(reinterpret(Float64,x)))
 end
 
