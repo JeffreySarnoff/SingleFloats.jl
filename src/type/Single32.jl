@@ -39,7 +39,8 @@ Single32(x::Irrational{S}) where S = Single32(Float64(x))
 Single32(x::Complex{Float64}) = Single32(Float64(x))
 Single32(x::Complex{Float32}) = Single32(Float32(x))
 
-show(io::IO, x::Single32) = show(io, Float32(x))
+Base.show(io::IO, x::Single32) = show(io, Float32(x))
+Base.show(io::IO, x::Array{Single32,N}) where {N} = show(io, map(Float32,x))
 string(x::Single32) = string(Float32(x))
 repr(x::Single32) = string("Single32(",repr(Float64(x)),")")
 
