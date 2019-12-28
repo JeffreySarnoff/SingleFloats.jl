@@ -15,13 +15,6 @@
  "sub_float"
 =#
 
-const Zero_Single32 = zero(Single32)
-const One_Single32 = one(Single32)
-
-Base.eq(x::Single32, y::Single32) = Core.Intrinsics.eq_float(x, y)
-Base.ne(x::Single32, y::Single32) = Core.Intrinsics.ne_float(x, y)
-Base.lt(x::Single32, y::Single32) = Core.Intrinsics.lt_float(x, y)
-Base.le(x::Single32, y::Single32) = Core.Intrinsics.le_float(x, y)
 
 Base.:(==)(x::Single32, y::Single32) = Core.Intrinsics.eq_float(x, y)
 Base.:(!=)(x::Single32, y::Single32) = Core.Intrinsics.ne_float(x, y)
@@ -29,28 +22,6 @@ Base.:(<)(x::Single32, y::Single32) = Core.Intrinsics.lt_float(x, y)
 Base.:(<=)(x::Single32, y::Single32) = Core.Intrinsics.le_float(x, y)
 Base.:(>)(x::Single32, y::Single32) = Core.Intrinsics.lt_float(y, x)
 Base.:(>=)(x::Single32, y::Single32) = Core.Intrinsics.le_float(y, x)
-
-
-Base.eq(x::Single32, y::Float64) = Core.Intrinsics.eq_float(x, Single32(y))
-Base.ne(x::Single32, y::Float64) = Core.Intrinsics.ne_float(x, Single32(y))
-Base.lt(x::Single32, y::Float64) = Core.Intrinsics.lt_float(x, Single32(y))
-Base.le(x::Single32, y::Float64) = Core.Intrinsics.le_float(x, Single32(y))
-
-Base.eq(x::Single32, y::Float32) = Core.Intrinsics.eq_float(x, Single32(y))
-Base.ne(x::Single32, y::Float32) = Core.Intrinsics.ne_float(x, Single32(y))
-Base.lt(x::Single32, y::Float32) = Core.Intrinsics.lt_float(x, Single32(y))
-Base.le(x::Single32, y::Float32) = Core.Intrinsics.le_float(x, Single32(y))
-
-Base.eq(x::Float64, y::Single32) = Core.Intrinsics.eq_float(Single32(x), y)
-Base.ne(x::Float64, y::Single32) = Core.Intrinsics.ne_float(Single32(x), y)
-Base.lt(x::Float64, y::Single32) = Core.Intrinsics.lt_float(Single32(x), y)
-Base.le(x::Float64, y::Single32) = Core.Intrinsics.le_float(Single32(x), y)
-
-Base.eq(x::Float32, y::Single32) = Core.Intrinsics.eq_float(Single32(x), y)
-Base.ne(x::Float32, y::Single32) = Core.Intrinsics.ne_float(Single32(x), y)
-Base.lt(x::Float32, y::Single32) = Core.Intrinsics.lt_float(Single32(x), y)
-Base.le(x::Float32, y::Single32) = Core.Intrinsics.le_float(Single32(x), y)
-
 
 Base.:(==)(x::Single32, y::Float64) = Core.Intrinsics.eq_float(x, Single32(y))
 Base.:(!=)(x::Single32, y::Float64) = Core.Intrinsics.ne_float(x, Single32(y))
