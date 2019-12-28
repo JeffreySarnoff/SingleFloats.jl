@@ -25,10 +25,12 @@ import LinearAlgebra: rank, cond, norm, opnorm, det, tr, inv, pinv,
                       cholesky, cholesky!, factorize
 using Random
 
+
+include("type/Single32.jl")
+
 const Zero_Single32 = zero(Single32)
 const One_Single32 = one(Single32)
 
-include("type/Single32.jl")
 include("type/random.jl")
 
 include("math/arith.jl")
