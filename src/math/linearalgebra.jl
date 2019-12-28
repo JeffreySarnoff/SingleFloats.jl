@@ -87,5 +87,7 @@ for Op in (:sqrt, :exp, :log,
            :asin, :acos, :atan, :acsc, :asec, :acot,
            :sinh, :cosh, :tanh, :csch, :sech, :coth,
            :asinh, :acosh, :atanh, :acsch, :asech, :acoth)
-    @eval $Op(x::Array{Single32,2}) = Single32.($Op(Float64.(x)))
+    @eval begin
+        $Op(x::Array{Single32,N}) where {N} = map(Single32, map(t->$Op(Float64(t)), x))
+    end    
 end
