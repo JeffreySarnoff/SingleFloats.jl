@@ -36,7 +36,7 @@ catalan_s32 = Single32(catalan)
 
 
 bigfloat = Float32( cbrt(golden_big) / sqrt(catalan_big) )
-single32 = Float32( cbrt(golden_s32) / sqrt(golden_s32) )
+single32 = Float32( cbrt(golden_s32) / sqrt(catalan_s32) )
 float32  = Float32( cbrt(golden_f32) / sqrt(catalan_f32) )
 
 result = evalerr(bigfloat, single32, float32)
@@ -44,7 +44,7 @@ result = evalerr(bigfloat, single32, float32)
 
 
 bigfloat = Float32( cos(golden_big) - (catalan_big^4) )
-single32 = Float32( cos(golden_s32) - (golden_s32^4) )
+single32 = Float32( cos(golden_s32) - (catalan_s32^4) )
 float32  = Float32( cos(golden_f32) - (catalan_f32^4) )
 
 result = evalerr(bigfloat, single32, float32)
