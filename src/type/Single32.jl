@@ -2,15 +2,17 @@ primitive type Single32 <: AbstractFloat 64 end
 
 Single32(x::Single32) = x
 
-Single32(x::Float64)  = reinterpret(Single32, x)
+Single32(x::Float64)  = Core.Intrinsics.bitcast(Single32, x)
 Single32(x::Float32)  = Core.Intrinsics.fpext(Single32, x)
 Single32(x::Float16)  = reinterpret(Single32, Float64(x))
 Single32(x::BigFloat) = Single32(Float64(x))
 Single32(x::BigInt)   = Single32(Float64(x))
 
-Base.Float64(x::Single32) = reinterpret(Float64, x)
+Base.Float64(x::Single32) = Core.Intrinsics.bitcast(Float64, x)
 Base.Float32(x::Single32) = Core.Intrinsics.fptrunc(Float32, x)
 Base.Float16(x::Single32) = Float16(Float32(x))
+Base.BigFloat(x::Single32) = BigFloat(Float64(x))
+Base.BigInt(x::Single32) = BigInt(Float64(x))
 
 for st in (Int8, Int16, Int32, Int64)
     @eval begin
@@ -49,16 +51,17 @@ Single32(x::Complex{Float32}) = Single32(Float32(x))
 Base.Complex{Float64}(x::Single32) = Complex{Float64}(Float64(x), zero(Float64))
 Base.Complex{Float32}(x::Single32) = Complex{Float32}(Float32(x), zero(Float32))
 
-Base.show(io::IO, x::Single32) = show(io, Float32(x))
-Base.show(io::IO, x::Array{Single32,N}) where {N} = show(io, map(Float32,x))
-string(x::Single32) = string(Float32(x))
-repr(x::Single32) = string("Single32(",repr(Float64(x)),")")
+Base.show(io::IO, x::Single32) = Base.show(io, Float32(x))
+Base.show(io::IO, x::Array{Single32,N}) where {N} = Base.show(io, map(Float32,x))
 
-widen(::Type{Single32}) = Float64
-widen(x::Single32) = Float64(x)
+Base.string(x::Single32) = string(Float32(x))
+Base.repr(x::Single32) = string("Single32(",repr(Float64(x)),")")
 
-hash(x::Single32) = hash(Float64(x))
-hash(x::Single32, h::UInt64) = hash(Float64(x), h)
+Base.widen(::Type{Single32}) = Float64
+Base.widen(x::Single32) = Float64(x)
+
+Base.hash(x::Single32) = hash(Float64(x))
+Base.hash(x::Single32, h::UInt64) = hash(Float64(x), h)
 
 
 maxintfloat(::Type{Single32}) = maxintfloat(Float32)
