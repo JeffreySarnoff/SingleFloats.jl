@@ -32,12 +32,22 @@ for T in (Int128, UInt128)
    end
 end
 
-Bool(x::Single32) = x==0 ? false : x==1 ? true : throw(InexactError(:Bool, Bool, x))
+Base.Bool(x::Single32) = x==0 ? false : x==1 ? true : throw(InexactError(:Bool, Bool, x))
+Single32(x::Bool) = x ? One_Single32 : Zero_Single32
+
+Single32(x::Rational{Int64}) = Single32(Float64(x))
+Single32(x::Rational{Int32}) = Single32(Float64(x))
+
+Base.Rational{Int64}(x::Single32) = Rational{Int64}(Float64(x))
+Base.Rational{Int32}(x::Single32) = Rational{Int32}(Float64(x))
 
 Single32(x::Irrational{S}) where S = Single32(Float64(x))
 
 Single32(x::Complex{Float64}) = Single32(Float64(x))
 Single32(x::Complex{Float32}) = Single32(Float32(x))
+
+Base.Complex{Float64}(x::Single32) = Complex{Float64}(Float64(x), zero(Float64))
+Base.Complex{Float32}(x::Single32) = Complex{Float32}(Float32(x), zero(Float32))
 
 Base.show(io::IO, x::Single32) = show(io, Float32(x))
 Base.show(io::IO, x::Array{Single32,N}) where {N} = show(io, map(Float32,x))
