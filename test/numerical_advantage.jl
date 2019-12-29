@@ -14,10 +14,10 @@ geomerr(x, y) = sqrt(abserr(x,y) * relerr(x, y))
 function evalerr(b32, s32, f32)
     s32err = geomerr(b32, s32)
     f32err = geomerr(b32, f32)
-    result = AbtractFloat # accuracies are indistinguishable
+    result = AbstractFloat # accuracies are indistinguishable
     if s32err < f32err
         result = Single32 # Single32 is more accurate than Float32
-    elseif s2err > f32err
+    elseif s32err > f32err
          reult = Float32 # Float32 is more accurate than Single32 
     end
     return result
