@@ -8,8 +8,9 @@ import Base: promote_rule, promote_type, convert, hash, show, string, repr, pars
     +, -, *, /, \, %, √, ÷, inv,
     prevfloat, nextfloat, eps, exponent, significand, zero, one, iszero, isone, isinteger, decompose,
     typemin, typemax, floatmin, floatmax, maxintfloat, widen, precision,
-    ^, sqrt, cbrt, ∛, div, rem, fld, mod, cld, hypot, min, max, minmax, maximum, minimum, rad2deg, deg2rad, mod2pi, rem2pi,
-    abs, abs2, signbit, sign, copysign, flipsign, floor, ceil, trunc, round, divrem, fldmod, clamp
+    ^, sqrt, cbrt, ∛, div, rem, fld, mod, cld, hypot, min, max, minmax, maximum, minimum,
+    abs, abs2, signbit, sign, copysign, flipsign, floor, ceil, trunc, round, divrem, fldmod, clamp,
+    rad2deg, deg2rad, mod2pi, rem2pi
     
 import Base.Math: exp, exp2, exp10, expm1, log, log2, log10, log1p, 
     sin, cos, tan, csc, sec, cot, asin, acos, atan, acsc, asec, acot,
