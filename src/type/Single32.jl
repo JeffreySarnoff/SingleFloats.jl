@@ -70,8 +70,8 @@ maxintfloat(::Type{Single32}, ::Type{I}) where {I<:Integer} = maxintfloat(Float3
 signbit(x::Single32) = signbit(Float64(x))
 
 
-Base.zero(::Type{Single32}) = Single32( zero(Float64)) )
-Base.one(::Type{Single32})  = Single32( one(Float64)) )
+Base.zero(::Type{Single32}) = Single32( zero(Float64) )
+Base.one(::Type{Single32})  = Single32( one(Float64) )
 Base.zeros(::Type{Single32}, n::Int) = map(Single32, zeros(Float64, n))
 Base.ones(::Type{Single32}, n::Int) = map(Single32, one(Float64, n))
 
